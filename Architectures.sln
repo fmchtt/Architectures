@@ -29,6 +29,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Onion", "Onion", "{FC865AAB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NoArch", "NoArch", "{993A8B34-9342-40CE-9E05-0BD1A3CDACCD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Architectures.CleanArch.Application", "Architectures.CleanArch.Application\Architectures.CleanArch.Application.csproj", "{D0323CD1-A27A-45D8-AE82-EECA204AF8B3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{D04584A5-3DAE-4051-A0EF-498144E9C7F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D04584A5-3DAE-4051-A0EF-498144E9C7F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D04584A5-3DAE-4051-A0EF-498144E9C7F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0323CD1-A27A-45D8-AE82-EECA204AF8B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0323CD1-A27A-45D8-AE82-EECA204AF8B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0323CD1-A27A-45D8-AE82-EECA204AF8B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0323CD1-A27A-45D8-AE82-EECA204AF8B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,6 +81,7 @@ Global
 		{A4243971-CEF7-4045-A31B-EFAC649F8478} = {FC865AAB-AF09-4A3D-8704-82E4534C2440}
 		{2070BF11-7C01-4B20-878A-8FE1E47D1B97} = {FA00E257-2BA0-48B1-B78A-D768493D94F6}
 		{D04584A5-3DAE-4051-A0EF-498144E9C7F5} = {FC865AAB-AF09-4A3D-8704-82E4534C2440}
+		{D0323CD1-A27A-45D8-AE82-EECA204AF8B3} = {FA00E257-2BA0-48B1-B78A-D768493D94F6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6918EEFA-B936-4D4A-870A-FE553A87ABC1}
