@@ -3,6 +3,6 @@
 public interface IArmazenagemArquivos
 {
     public Task<FileStream> ObterArquivo(string filename);
-    public Task SalvarArquivo(FileStream file);
-    public Task DeletarArquivo(string filename);
+    public Task<string> SalvarArquivo(FileStream file);
+    public Task<bool> DeletarArquivo(string filename);
 }
