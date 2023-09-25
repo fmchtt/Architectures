@@ -8,10 +8,12 @@ namespace Architectures.CleanArch.Domain.CasosDeUso;
 public class EntrarUsuarioCasoDeUso : ICasoDeUso<EntrarComando, Usuario>
 {
     private readonly IRepositorioUsuario _repositorioUsuario;
+    private readonly ILogger _logger;
 
-    public EntrarUsuarioCasoDeUso(IRepositorioUsuario repositorioUsuario)
+    public EntrarUsuarioCasoDeUso(IRepositorioUsuario repositorioUsuario, ILogger logger)
     {
         _repositorioUsuario = repositorioUsuario;
+        _logger = logger;
     }
 
     public async Task<Usuario> Executar(EntrarComando comando)
@@ -26,6 +28,8 @@ public class EntrarUsuarioCasoDeUso : ICasoDeUso<EntrarComando, Usuario>
         {
             throw new AutorizacaoExcecao("Senha inválida!");
         }
+
+        _logger.Log($"Nova entrada do usuário {usuario.Nome}");
 
         return usuario;
     }
