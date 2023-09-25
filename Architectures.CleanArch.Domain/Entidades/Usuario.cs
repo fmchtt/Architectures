@@ -7,7 +7,7 @@ public class Usuario : Entidade
     public string Nome { get; private set; }
     public string Senha { get; private set; }
 
-    public static readonly Usuario Empty = new();
+    public static Usuario Empty { get {  return new(); } }
 
     public Usuario() : base(0)
     {
@@ -15,14 +15,18 @@ public class Usuario : Entidade
         Senha = string.Empty;
     }
 
-    public Usuario(string nome, string senha)
+    public Usuario(string nome)
     {
         Nome = nome;
-        Senha = senha;
+        Senha = string.Empty;
     }
 
-    public static Usuario Criar(string nome, string senha) =>
-        new Usuario(nome, senha);
+    public static Usuario Criar(string nome, string senha)
+    {
+        var usuario = new Usuario(nome);
+        usuario.AtribuirSenha(senha);
+        return usuario;
+    }
 
     public void AtribuirSenha(string senha)
     {
