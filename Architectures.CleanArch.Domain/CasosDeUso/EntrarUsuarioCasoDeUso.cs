@@ -18,7 +18,7 @@ public class EntrarUsuarioCasoDeUso : ICasoDeUso<EntrarComando, Usuario>
 
     public async Task<Usuario> Executar(EntrarComando comando)
     {
-        var usuario = await _repositorioUsuario.ObterPorEmail(comando.Email);
+        var usuario = await _repositorioUsuario.ObterPorNome(comando.Email);
         if (usuario == null)
         {
             throw new ObjetoNaoEncontradoExcecao("Usuario não encontrado!");
