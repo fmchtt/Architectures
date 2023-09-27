@@ -6,12 +6,12 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Architectures.CleanArch.Infra.Repositorios;
 
-public class EntityRepositorioUsuario : IRepositorioUsuario
+public class EntityRepositorioProduto : IRepositorioProduto
 {
     private readonly EntityFrameworkContexto _dbContext;
     private IDbContextTransaction? Transaction { get; set; }
 
-    public EntityRepositorioUsuario(EntityFrameworkContexto dbContext)
+    public EntityRepositorioProduto(EntityFrameworkContexto dbContext)
     {
         _dbContext = dbContext;
     }
@@ -39,39 +39,38 @@ public class EntityRepositorioUsuario : IRepositorioUsuario
         }
     }
 
-    public async Task<Usuario?> ObterPorNome(string nome)
+    public async Task<ICollection<Produto>> ObterPorDono(Usuario dono)
     {
-        return await _dbContext.Usuarios.FirstOrDefaultAsync(x => x.Nome == nome);
+        return await _dbContext.Produtos.Where(x => x.DonoId == dono.Id).ToListAsync();
     }
 
-    public async Task<Usuario?> ObterPorId(int id)
+    public async Task<Produto?> ObterPorId(int id)
     {
-        return await _dbContext.Usuarios.FirstOrDefaultAsync(x => x.Id == id);
+        return await _dbContext.Produtos.FirstOrDefaultAsync(x => x.Id == id);
     }
-
-    public async Task<Usuario> Salvar(Usuario entidade)
+    public async Task<Produto> Atualizar(Produto entidade)
     {
-        var usuario = await _dbContext.Usuarios.AddAsync(entidade);
+        var produto = _dbContext.Produtos.Update(entidade);
         if (Transaction == null)
         {
             await _dbContext.SaveChangesAsync();
         }
-        return usuario.Entity;
+        return produto.Entity;
     }
 
-    public async Task<Usuario> Atualizar(Usuario entidade)
+    public async Task<Produto> Salvar(Produto entidade)
     {
-        var usuario = _dbContext.Usuarios.Update(entidade);
+        var produto = _dbContext.Produtos.Add(entidade);
         if (Transaction == null)
         {
             await _dbContext.SaveChangesAsync();
         }
-        return usuario.Entity;
+        return produto.Entity;
     }
 
-    public async Task Deletar(Usuario entidade)
+    public async Task Deletar(Produto entidade)
     {
-        _dbContext.Usuarios.Remove(entidade);
+        _dbContext.Remove(entidade);
         if (Transaction == null)
         {
             await _dbContext.SaveChangesAsync();

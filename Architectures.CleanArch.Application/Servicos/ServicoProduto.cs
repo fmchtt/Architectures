@@ -1,12 +1,12 @@
 ﻿using Architectures.CleanArch.Application.Comandos;
 using Architectures.CleanArch.Domain.CasosDeUso;
 using Architectures.CleanArch.Domain.Contratos;
-using Architectures.CleanArch.Domain.ValueObjects;
+using Architectures.CleanArch.Domain.Entidades;
 using MediatR;
 
 namespace Architectures.CleanArch.Application.Servicos;
 
-public class ServicoProduto : IRequestHandler<ImportarProdutosDTO, StatusImportacao>
+public class ServicoProduto : IRequestHandler<ImportarProdutosDTO, ICollection<Produto>>, IRequestHandler<ListarProdutosDTO, ICollection<Produto>>
 {
     private readonly ILogger _logger;
     private readonly IArmazenagemArquivos _armazenagemArquivos;
@@ -23,9 +23,15 @@ public class ServicoProduto : IRequestHandler<ImportarProdutosDTO, StatusImporta
         _repositorioArquivo = repositorioArquivo;
     }
 
-    public async Task<StatusImportacao> Handle(ImportarProdutosDTO request, CancellationToken cancellationToken)
+    public async Task<ICollection<Produto>> Handle(ImportarProdutosDTO request, CancellationToken cancellationToken)
     {
         var casoDeUso = new ImportarProdutosCasoDeUso(_armazenagemArquivos, _leitorTabela, _logger, _repositorioProduto, _repositorioArquivo);
+        return await casoDeUso.Executar(request);
+    }
+
+    public async Task<ICollection<Produto>> Handle(ListarProdutosDTO request, CancellationToken cancellationToken)
+    {
+        var casoDeUso = new ListarProdutosCasoDeUso(_logger, _repositorioProduto);
         return await casoDeUso.Executar(request);
     }
 }

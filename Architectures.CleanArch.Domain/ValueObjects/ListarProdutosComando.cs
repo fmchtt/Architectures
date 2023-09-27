@@ -3,20 +3,20 @@ using System.Text.Json.Serialization;
 
 namespace Architectures.CleanArch.Domain.ValueObjects;
 
-public class ImportarProdutosComando : Comando
+public class ListarProdutosComando : Comando
 {
-    public FileStream Arquivo { get; set; }
+    public string? Nome { get; set; }
     [JsonIgnore] public Usuario Usuario { get; set; }
 
-    public ImportarProdutosComando(FileStream arquivo)
+    public ListarProdutosComando(string? nome)
     {
-        Arquivo = arquivo;
+        Nome = nome;
         Usuario = Usuario.Empty;
     }
 
-    public ImportarProdutosComando(FileStream arquivo, Usuario usuario)
+    public ListarProdutosComando(string? nome, Usuario usuario)
     {
-        Arquivo = arquivo;
+        Nome = nome;
         Usuario = usuario;
     }
 }

@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Architectures.CleanArch.Domain.ValueObjects;
+﻿namespace Architectures.CleanArch.Domain.ValueObjects;
 
 public class EntrarComando : Comando
 {
     public string Email { get; set; }
     public string Password { get; set; }
+
+    public EntrarComando(string email, string password)
+    {
+        Email = email;
+        Password = password;
+    }
 }
