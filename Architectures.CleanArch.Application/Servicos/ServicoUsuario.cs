@@ -10,11 +10,13 @@ public class ServicoUsuario : IRequestHandler<EntrarDTO, Usuario>, IRequestHandl
 {
     private readonly ILogger _logger;
     private readonly IRepositorioUsuario _repositorioUsuario;
+    private readonly IMediator _mediator;
 
-    public ServicoUsuario(ILogger logger, IRepositorioUsuario repositorioUsuario)
+    public ServicoUsuario(ILogger logger, IRepositorioUsuario repositorioUsuario, IMediator mediator)
     {
         _logger = logger;
         _repositorioUsuario = repositorioUsuario;
+        _mediator = mediator;
     }
 
     public async Task<Usuario> Handle(EntrarDTO request, CancellationToken cancellationToken)
