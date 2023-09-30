@@ -2,10 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Architectures.CleanArch.Infra.ContextosBancoDeDados;
 using Microsoft.EntityFrameworkCore;
-using Architectures.CleanArch.Application.Servicos;
-using MediatR;
-using Architectures.CleanArch.Application.Comandos;
-using Architectures.CleanArch.Domain.Entidades;
 using Architectures.CleanArch.Domain.Contratos;
 using Architectures.CleanArch.Infra.Repositorios;
 using Architectures.CleanArch.Infra.Ferramentas;
@@ -33,6 +29,7 @@ public static class InjecaoDependencias
         // Ferramentas
         services.AddScoped<ILogger, ConsoleLogger>();
         services.AddScoped<IArmazenagemArquivos, LocalArmazenagemArquivos>();
+        services.AddScoped<IGeradorToken, JwtGeradorToken>();
         services.AddScoped<ILeitorTabela, LeitorTabela>();
 
         // Mediador #( Pattern Mediator )

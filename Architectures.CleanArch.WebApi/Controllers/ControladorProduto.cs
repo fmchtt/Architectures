@@ -23,4 +23,12 @@ public class ControladorProduto : BaseControlador
         var comando = new ListarProdutosDTO(nome, usuario);
         return await _mediator.Send(comando);
     }
+
+    [HttpPost, Authorize]
+    public async Task<ICollection<Produto>> ImportarProdutos(ImportarProdutosDTO data)
+    {
+        var usuario = await ObterUsuario();
+        data.Usuario = usuario;
+        return await _mediator.Send(data);
+    }
 }

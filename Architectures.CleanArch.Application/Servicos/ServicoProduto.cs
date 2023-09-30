@@ -13,16 +13,14 @@ public class ServicoProduto : IRequestHandler<ImportarProdutosDTO, ICollection<P
     private readonly ILeitorTabela _leitorTabela;
     private readonly IRepositorioProduto _repositorioProduto;
     private readonly IRepositorioArquivo _repositorioArquivo;
-    private readonly IMediator _mediator;
 
-    public ServicoProduto(ILogger logger, IArmazenagemArquivos armazenagemArquivos, ILeitorTabela leitorTabela, IRepositorioProduto repositorioProduto, IRepositorioArquivo repositorioArquivo, IMediator mediator)
+    public ServicoProduto(ILogger logger, IArmazenagemArquivos armazenagemArquivos, ILeitorTabela leitorTabela, IRepositorioProduto repositorioProduto, IRepositorioArquivo repositorioArquivo)
     {
         _logger = logger;
         _armazenagemArquivos = armazenagemArquivos;
         _leitorTabela = leitorTabela;
         _repositorioProduto = repositorioProduto;
         _repositorioArquivo = repositorioArquivo;
-        _mediator = mediator;
     }
 
     public async Task<ICollection<Produto>> Handle(ImportarProdutosDTO request, CancellationToken cancellationToken)
