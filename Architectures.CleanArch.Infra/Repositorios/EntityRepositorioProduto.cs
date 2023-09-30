@@ -25,6 +25,7 @@ public class EntityRepositorioProduto : IRepositorioProduto
     {
         if (Transaction != null)
         {
+            await _dbContext.SaveChangesAsync();
             await Transaction.CommitAsync();
             Transaction = null;
         }

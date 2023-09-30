@@ -30,7 +30,7 @@ public class ImportarProdutosCasoDeUso : ICasoDeUso<ImportarProdutosComando, ICo
         var arquivo = Arquivo.Criar(filePath, comando.Usuario);
         await _repositorioArquivo.Salvar(arquivo);
 
-        var produtosTabela = await _leitorTabela.LerTabela<Produto>(comando.Arquivo);
+        var produtosTabela = await _leitorTabela.LerTabela<ProdutoTabela>(comando.Arquivo);
         if (produtosTabela == null)
         {
             throw new ImprocessavelExcecao("Tabela não legível!");
@@ -39,13 +39,14 @@ public class ImportarProdutosCasoDeUso : ICasoDeUso<ImportarProdutosComando, ICo
         await _logger.Log($"Importando {produtosTabela.Count} produtos pelo usuario {comando.Usuario.Nome}");
 
         var produtosBanco = await _repositorioProduto.ObterPorDono(comando.Usuario);
-        if (produtosBanco != null) {
+        if (produtosBanco != null)
+        {
 
             foreach (var produto in produtosTabela)
             {
                 if (!produtosBanco.Any(x => x.Nome == produto.Nome))
                 {
-                    await _repositorioProduto.Salvar(produto);
+                    await _repositorioProduto.Salvar(produto.ParaEntidade(comando.Usuario));
                 }
             }
 

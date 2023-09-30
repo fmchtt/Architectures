@@ -20,6 +20,10 @@ public class ListarProdutosCasoDeUso : ICasoDeUso<ListarProdutosComando, ICollec
         await _logger.Log($"Listagem de produtos requisitada pelo usuario: {comando.Usuario.Nome}");
 
         var produtos = await _repositorioProduto.ObterPorDono(comando.Usuario);
-        return produtos.Where(x => x.Nome.Contains(comando.Nome)).ToList();
+
+        if (comando.Nome != null)
+            produtos = produtos.Where(x => x.Nome.Contains(comando.Nome)).ToList();
+
+        return produtos;
     }
 }
