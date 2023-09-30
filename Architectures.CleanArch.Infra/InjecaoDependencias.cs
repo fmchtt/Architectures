@@ -25,20 +25,18 @@ public static class InjecaoDependencias
             );
         });
 
+        // Repositorios
         services.AddScoped<IRepositorioArquivo, EntityRepositorioArquivo>();
         services.AddScoped<IRepositorioProduto, EntityRepositorioProduto>();
         services.AddScoped<IRepositorioUsuario, EntityRepositorioUsuario>();
 
-        services.AddMediatR(config => config.RegisterServicesFromAssembly(AppDomain.CurrentDomain.Load("Architectures.CleanArch.Application")));
-
-        services.AddScoped<ILogger, Logger>();
-        services.AddScoped<IArmazenagemArquivos, ArmazenagemArquivos>();
+        // Ferramentas
+        services.AddScoped<ILogger, ConsoleLogger>();
+        services.AddScoped<IArmazenagemArquivos, LocalArmazenagemArquivos>();
         services.AddScoped<ILeitorTabela, LeitorTabela>();
 
-        services.AddScoped<IRequestHandler<ImportarProdutosDTO, ICollection<Produto>>, ServicoProduto>();
-        services.AddScoped<IRequestHandler<ListarProdutosDTO, ICollection<Produto>>, ServicoProduto>();
-        services.AddScoped<IRequestHandler<EntrarDTO, Usuario>, ServicoUsuario>();
-        services.AddScoped<IRequestHandler<RegistrarDTO, Usuario>, ServicoUsuario>();
+        // Mediador #( Pattern Mediator )
+        services.AddMediatR(config => config.RegisterServicesFromAssembly(AppDomain.CurrentDomain.Load("Architectures.CleanArch.Application")));
 
         return services;
     }

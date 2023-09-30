@@ -3,7 +3,7 @@
 namespace Architectures.CleanArch.WebApi.Controllers;
 
 [ApiController, Route("usuario")]
-public class ControllerUsuario : ControllerBase
+public class ControladorUsuario : ControllerBase
 {
     
 }
