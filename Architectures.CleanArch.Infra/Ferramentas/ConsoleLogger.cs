@@ -1,5 +1,4 @@
 ﻿using Architectures.CleanArch.Domain.Contratos;
-using System.Linq;
 
 namespace Architectures.CleanArch.Infra.Ferramentas;
 
