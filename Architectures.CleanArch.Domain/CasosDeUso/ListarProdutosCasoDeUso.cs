@@ -17,7 +17,7 @@ public class ListarProdutosCasoDeUso : ICasoDeUso<ListarProdutosComando, ICollec
 
     public async Task<ICollection<Produto>> Executar(ListarProdutosComando comando)
     {
-        _logger.Log($"Listagem de produtos requisitada pelo usuario: {comando.Usuario.Nome}");
+        await _logger.Log($"Listagem de produtos requisitada pelo usuario: {comando.Usuario.Nome}");
 
         var produtos = await _repositorioProduto.ObterPorDono(comando.Usuario);
         return produtos.Where(x => x.Nome.Contains(comando.Nome)).ToList();

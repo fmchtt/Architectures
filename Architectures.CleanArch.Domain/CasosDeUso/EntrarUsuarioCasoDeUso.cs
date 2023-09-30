@@ -30,7 +30,7 @@ public class EntrarUsuarioCasoDeUso : ICasoDeUso<EntrarComando, TokenResultado>
             throw new AutorizacaoExcecao("Senha inválida!");
         }
 
-        _logger.Log($"Nova entrada do usuário {usuario.Nome}");
+        await _logger.Log($"Nova entrada do usuário {usuario.Nome}");
 
         return _geradorToken.Gerar(usuario);
     }

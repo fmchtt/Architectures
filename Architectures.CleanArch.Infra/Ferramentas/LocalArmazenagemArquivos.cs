@@ -19,7 +19,7 @@ public class LocalArmazenagemArquivos : IArmazenagemArquivos
         return Task.FromResult(File.OpenRead(filename));
     }
 
-    public async Task<string> SalvarArquivo(FileStream file)
+    public async Task<string> SalvarArquivo(Stream arquivo, string nomeArquivo)
     {
         var datetime = DateTime.Now;
         var timestamp = $"{datetime.Day}-{datetime.Month}-{datetime.Year}";
@@ -29,13 +29,13 @@ public class LocalArmazenagemArquivos : IArmazenagemArquivos
         {
             Directory.CreateDirectory(basePath);
         }
-        var filename = $"{Guid.NewGuid()}-{file.Name}";
+        var filename = $"{Guid.NewGuid()}-{nomeArquivo}";
 
         var fullPath = Path.Join(basePath, filename);
 
         await using (var stream = File.Create(fullPath))
         {
-            await file.CopyToAsync(stream);
+            await arquivo.CopyToAsync(stream);
         }
 
         return Path.Join(_configuracoesArquivos.BasePath, timestamp, filename).Replace("\\", "/");

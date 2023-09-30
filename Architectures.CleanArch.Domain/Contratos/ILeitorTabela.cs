@@ -2,5 +2,5 @@
 
 public interface ILeitorTabela
 {
-    public Task<ICollection<T>> LerTabela<T>(FileStream tabela);
+    public Task<ICollection<T>> LerTabela<T>(Stream tabela);
 }

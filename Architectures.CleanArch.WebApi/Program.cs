@@ -7,18 +7,12 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Logging.ClearProviders();
-builder.Logging.AddConsole();
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-var secret = builder.Configuration.GetValue("SECRET_KEY", "") ?? Guid.NewGuid().ToString();
-var key = Encoding.ASCII.GetBytes(secret);
 
 builder.Services.Configure<ConfiguracaoArquivo>(builder.Configuration.GetSection("Arquivo"));
 builder.Services.Configure<ConfiguracaoBancoDeDados>(builder.Configuration.GetSection("BancoDeDados"));
+builder.Services.Configure<ConfiguracaoSeguranca>(builder.Configuration.GetSection("Seguranca"));
 builder.Services.AdicionarInfraestrutura(builder.Configuration);
 
 builder.Services.AddSwaggerGen(options =>
@@ -47,27 +41,31 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+var configuracoes = builder.Configuration.GetSection("Seguranca").Get<ConfiguracaoSeguranca>() ?? throw new ApplicationException("Configurações de segurança não configuradas");
+
+byte[] key = Encoding.ASCII.GetBytes(configuracoes.SecretKey);
+
 builder.Services.AddAuthentication(
-        options =>
+    options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    }
+)
+.AddJwtBearer(
+    options =>
+    {
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
+        options.TokenValidationParameters = new TokenValidationParameters
         {
-            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        }
-    )
-    .AddJwtBearer(
-        options =>
-        {
-            options.RequireHttpsMetadata = false;
-            options.SaveToken = true;
-            options.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = false,
-                ValidateAudience = false,
-            };
-        }
-    );
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuer = false,
+            ValidateAudience = false,
+        };
+    }
+);
 
 var app = builder.Build();
 

@@ -22,7 +22,7 @@ public class ObterUsuarioCasoDeUso : ICasoDeUso<ObterUsuarioComando, UsuarioResu
         {
             throw new ObjetoNaoEncontradoExcecao("Usuario inexistente");
         }
-        _logger.Log($"Usuario {usuario.Nome} lido!");
+        await _logger.Log($"Usuario {usuario.Nome} lido!");
         return new UsuarioResultado(usuario);
     }
 }

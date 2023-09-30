@@ -1,5 +1,5 @@
 ﻿using Architectures.CleanArch.Application.Comandos;
-using Architectures.CleanArch.Domain.Entidades;
+using Architectures.CleanArch.Domain.ValueObjects;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,18 +17,20 @@ public class ControladorProduto : BaseControlador
     }
 
     [HttpGet, Authorize]
-    public async Task<ICollection<Produto>> ListarProdutos([FromQuery] string? nome)
+    public async Task<ICollection<ProdutoResultado>> ListarProdutos([FromQuery] string? nome)
     {
         var usuario = await ObterUsuario();
         var comando = new ListarProdutosDTO(nome, usuario);
-        return await _mediator.Send(comando);
+        var produtos = await _mediator.Send(comando);
+        return produtos.Select(produto => new ProdutoResultado(produto)).ToList();
     }
 
     [HttpPost, Authorize]
-    public async Task<ICollection<Produto>> ImportarProdutos(ImportarProdutosDTO data)
+    public async Task<ICollection<ProdutoResultado>> ImportarProdutos(ImportarProdutosDTO data)
     {
         var usuario = await ObterUsuario();
         data.Usuario = usuario;
-        return await _mediator.Send(data);
+        var produtos = await _mediator.Send(data);
+        return produtos.Select(produto => new ProdutoResultado(produto)).ToList();
     }
 }

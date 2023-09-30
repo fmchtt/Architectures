@@ -17,9 +17,10 @@ public class ControladorUsuario : ControllerBase
     }
 
     [HttpGet("atual"), Authorize]
-    public async Task<UsuarioResultado> ObterUsuario([FromQuery] int id)
+    public async Task<UsuarioResultado> ObterUsuario()
     {
-        var dto = new ObterUsuarioDTO(id);
+        var usuario = await ObterUsuario();
+        var dto = new ObterUsuarioDTO(usuario.Id);
         return await _mediator.Send(dto);
     }
 

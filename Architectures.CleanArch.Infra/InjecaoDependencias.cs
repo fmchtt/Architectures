@@ -14,23 +14,22 @@ public static class InjecaoDependencias
     {
         services.AddDbContext<EntityFrameworkContexto>(x =>
         {
-            //x.UseLazyLoadingProxies();
+            x.UseLazyLoadingProxies();
             x.UseNpgsql(
-                configuration.GetSection("CONNECTION_STRING").Value,
                 b => b.MigrationsAssembly(typeof(EntityFrameworkContexto).Assembly.FullName)
             );
         });
 
         // Repositorios
-        services.AddScoped<IRepositorioArquivo, EntityRepositorioArquivo>();
-        services.AddScoped<IRepositorioProduto, EntityRepositorioProduto>();
-        services.AddScoped<IRepositorioUsuario, EntityRepositorioUsuario>();
+        services.AddTransient<IRepositorioArquivo, EntityRepositorioArquivo>();
+        services.AddTransient<IRepositorioProduto, EntityRepositorioProduto>();
+        services.AddTransient<IRepositorioUsuario, EntityRepositorioUsuario>();
 
         // Ferramentas
-        services.AddScoped<ILogger, ConsoleLogger>();
-        services.AddScoped<IArmazenagemArquivos, LocalArmazenagemArquivos>();
-        services.AddScoped<IGeradorToken, JwtGeradorToken>();
-        services.AddScoped<ILeitorTabela, LeitorTabela>();
+        services.AddTransient<ILogger, ConsoleLogger>();
+        services.AddTransient<IArmazenagemArquivos, LocalArmazenagemArquivos>();
+        services.AddTransient<IGeradorToken, JwtGeradorToken>();
+        services.AddTransient<ILeitorTabela, LeitorTabela>();
 
         // Mediador #( Pattern Mediator )
         services.AddMediatR(config => config.RegisterServicesFromAssembly(AppDomain.CurrentDomain.Load("Architectures.CleanArch.Application")));

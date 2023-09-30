@@ -22,7 +22,7 @@ public class RegistroUsuarioCasoDeUso : ICasoDeUso<RegistrarComando, TokenResult
         var usuario = Usuario.Criar(comando.Nome, comando.Password);
         usuario = await _repositorioUsuario.Salvar(usuario);
 
-        _logger.Log($"Novo registro do usuário {usuario.Nome}");
+        await _logger.Log($"Novo registro do usuário {usuario.Nome}");
 
         return _geradorToken.Gerar(usuario);
     }

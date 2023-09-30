@@ -26,7 +26,7 @@ public class ImportarProdutosCasoDeUso : ICasoDeUso<ImportarProdutosComando, ICo
     {
         await _repositorioProduto.Begin();
 
-        var filePath = await _armazenagemArquivos.SalvarArquivo(comando.Arquivo);
+        var filePath = await _armazenagemArquivos.SalvarArquivo(comando.Arquivo, comando.NomeArquivo);
         var arquivo = Arquivo.Criar(filePath, comando.Usuario);
         await _repositorioArquivo.Salvar(arquivo);
 
@@ -36,7 +36,7 @@ public class ImportarProdutosCasoDeUso : ICasoDeUso<ImportarProdutosComando, ICo
             throw new ImprocessavelExcecao("Tabela não legível!");
         }
 
-        _logger.Log($"Importando {produtosTabela.Count} produtos pelo usuario {comando.Usuario.Nome}");
+        await _logger.Log($"Importando {produtosTabela.Count} produtos pelo usuario {comando.Usuario.Nome}");
 
         var produtosBanco = await _repositorioProduto.ObterPorDono(comando.Usuario);
         if (produtosBanco != null) {

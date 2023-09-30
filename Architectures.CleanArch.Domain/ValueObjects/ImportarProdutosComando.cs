@@ -5,18 +5,21 @@ namespace Architectures.CleanArch.Domain.ValueObjects;
 
 public class ImportarProdutosComando : Comando
 {
-    public FileStream Arquivo { get; set; }
+    [JsonIgnore] public Stream Arquivo { get; set; }
+    [JsonIgnore] public string NomeArquivo { get; set; }
     [JsonIgnore] public Usuario Usuario { get; set; }
 
-    public ImportarProdutosComando(FileStream arquivo)
+    public ImportarProdutosComando(Stream arquivo, string nomeArquivo)
     {
         Arquivo = arquivo;
         Usuario = Usuario.Empty;
+        NomeArquivo = nomeArquivo;
     }
 
-    public ImportarProdutosComando(FileStream arquivo, Usuario usuario)
+    public ImportarProdutosComando(Stream arquivo, Usuario usuario, string nomeArquivo)
     {
         Arquivo = arquivo;
+        NomeArquivo = nomeArquivo;
         Usuario = usuario;
     }
 }
