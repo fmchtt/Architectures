@@ -16,7 +16,7 @@ public class ImportarProdutosComando : Comando
         NomeArquivo = nomeArquivo;
     }
 
-    public ImportarProdutosComando(Stream arquivo, Usuario usuario, string nomeArquivo)
+    public ImportarProdutosComando(Stream arquivo, string nomeArquivo, Usuario usuario)
     {
         Arquivo = arquivo;
         NomeArquivo = nomeArquivo;

@@ -1,5 +1,6 @@
 ﻿using Architectures.CleanArch.Application.Comandos;
 using Architectures.CleanArch.Domain.ValueObjects;
+using Architectures.CleanArch.WebApi.Forms;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,11 +27,11 @@ public class ControladorProduto : BaseControlador
     }
 
     [HttpPost, Authorize]
-    public async Task<ICollection<ProdutoResultado>> ImportarProdutos(ImportarProdutosDTO data)
+    public async Task<ICollection<ProdutoResultado>> ImportarProdutos([FromForm] FileForm data)
     {
         var usuario = await ObterUsuario();
-        data.Usuario = usuario;
-        var produtos = await _mediator.Send(data);
+        var comando = new ImportarProdutosDTO(data.Arquivo.OpenReadStream(), data.Arquivo.Name, usuario);
+        var produtos = await _mediator.Send(comando);
         return produtos.Select(produto => new ProdutoResultado(produto)).ToList();
     }
 }
