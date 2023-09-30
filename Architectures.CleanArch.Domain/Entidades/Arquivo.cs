@@ -5,7 +5,7 @@ public class Arquivo : Entidade
     public string FileName { get; set; }
 
     public int DonoId { get; set; }
-    public Usuario Dono { get; set; }
+    public virtual Usuario Dono { get; set; }
 
     public static Arquivo Empty { get { return new(); } }
 

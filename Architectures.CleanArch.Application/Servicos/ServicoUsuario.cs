@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Architectures.CleanArch.Application.Servicos;
 
-public class ServicoUsuario : IRequestHandler<EntrarDTO, TokenResultado>, IRequestHandler<RegistrarDTO, TokenResultado>
+public class ServicoUsuario : IRequestHandler<EntrarDTO, TokenResultado>, IRequestHandler<RegistrarDTO, TokenResultado>, IRequestHandler<ObterUsuarioDTO, UsuarioResultado>
 {
     private readonly ILogger _logger;
     private readonly IRepositorioUsuario _repositorioUsuario;

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Architectures.CleanArch.WebApi.Controllers;
 
 [ApiController, Route("usuario")]
-public class ControladorUsuario : ControllerBase
+public class ControladorUsuario : BaseControlador
 {
     private readonly IMediator _mediator;
 
@@ -17,7 +17,7 @@ public class ControladorUsuario : ControllerBase
     }
 
     [HttpGet("atual"), Authorize]
-    public async Task<UsuarioResultado> ObterUsuario()
+    public async Task<UsuarioResultado> ObterUsuarioAtual()
     {
         var usuario = await ObterUsuario();
         var dto = new ObterUsuarioDTO(usuario.Id);
