@@ -1,3 +1,6 @@
+using Architectures.NoArch.WebApi.EntityFramework.ContextosBancoDeDados;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -8,6 +11,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+builder.Services.AddDbContext<EntityFrameworkContexto>(options =>
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("EntityFrameworkContext"));
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -21,5 +29,11 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<EntityFrameworkContexto>();
+    db.Database.Migrate();
+}
 
 app.Run();
