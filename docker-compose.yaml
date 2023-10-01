@@ -1,0 +1,42 @@
+services:
+    balancer:
+        image: "nginx:latest"
+        volumes:
+            - "./architectures.conf:/etc/nginx/conf.d/default.conf"
+        ports:
+            - "80:80"
+            - "443:443"
+        depends_on:
+            - api
+        networks:
+            - "app-network"
+
+    api:
+        image: architectures/clean
+        build:
+            dockerfile: "cleanarch.dockerfile"
+        expose:
+            - "80"
+        networks:
+            - "app-network"
+        depends_on:
+            - "database"
+        environment:
+            Arquivo__BasePath: "uploads"
+            BancoDeDados__ConnectionString: "Server=database;Port=5432;Database=architectures;User Id=postgres;Password=docker1234@;"
+            Seguranca__SecretKey: "e0c37e0a-fa29-4181-b801-ce63a8b47b1b"
+        deploy:
+            mode: replicated
+            replicas: 2
+
+    database:
+        image: "postgres:latest"
+        networks:
+            - "app-network"
+        environment:
+            POSTGRES_PASSWORD: docker1234@
+        expose:
+            - "5432"
+
+networks:
+    app-network: {}
