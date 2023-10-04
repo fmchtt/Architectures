@@ -10,7 +10,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
 builder.Services.AddDbContext<EntityFrameworkContexto>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetSection("ConnectionString").Value);
