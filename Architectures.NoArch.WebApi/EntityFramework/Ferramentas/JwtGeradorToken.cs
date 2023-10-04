@@ -1,7 +1,5 @@
 ﻿using Architectures.NoArch.WebApi.Entidades;
-using Architectures.NoArch.WebApi.EntityFramework.Configuracoes;
 using Architectures.NoArch.WebApi.ValueObjects;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -11,16 +9,16 @@ namespace Architectures.NoArch.WebApi.EntityFramework.Ferramentas;
 
 public class JwtGeradorToken
 {
-    private readonly ConfiguracaoSeguranca _configuracaoSeguranca;
+    public string SecretKey { get; }
 
     public JwtGeradorToken(string configuracoesSeguranca)
     {
-        _configuracaoSeguranca.SecretKey = configuracoesSeguranca;
+        SecretKey = configuracoesSeguranca;
     }
 
     public TokenResultado Gerar(Usuario user)
     {
-        var secret = Encoding.ASCII.GetBytes(_configuracaoSeguranca.SecretKey);
+        var secret = Encoding.ASCII.GetBytes(SecretKey);
         var gerenteToken = new JwtSecurityTokenHandler();
 
         var descricaoToken = new SecurityTokenDescriptor

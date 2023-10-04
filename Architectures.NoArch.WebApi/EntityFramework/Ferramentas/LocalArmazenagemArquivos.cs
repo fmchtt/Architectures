@@ -1,15 +1,12 @@
-﻿using Architectures.NoArch.WebApi.EntityFramework.Configuracoes;
-using Microsoft.Extensions.Options;
-
-namespace Architectures.NoArch.WebApi.EntityFramework.Ferramentas;
+﻿namespace Architectures.NoArch.WebApi.EntityFramework.Ferramentas;
 
 public class LocalArmazenagemArquivos
 {
-    private readonly ConfiguracaoArquivo _configuracoesArquivos;
+    public string BasePath { get; }
 
     public LocalArmazenagemArquivos(string path)
     {
-        _configuracoesArquivos.BasePath = path;
+        BasePath = path;
     }
 
     public Task<FileStream> ObterArquivo(string filename)
@@ -22,7 +19,7 @@ public class LocalArmazenagemArquivos
     {
         var datetime = DateTime.Now;
         var timestamp = $"{datetime.Day}-{datetime.Month}-{datetime.Year}";
-        var basePath = Path.Join(Environment.CurrentDirectory, "wwwroot", _configuracoesArquivos.BasePath, timestamp);
+        var basePath = Path.Join(Environment.CurrentDirectory, "wwwroot", BasePath, timestamp);
 
         if (!Directory.Exists(basePath))
         {
@@ -37,7 +34,7 @@ public class LocalArmazenagemArquivos
             await arquivo.CopyToAsync(stream);
         }
 
-        return Path.Join(_configuracoesArquivos.BasePath, timestamp, filename).Replace("\\", "/");
+        return Path.Join(BasePath, timestamp, filename).Replace("\\", "/");
     }
     public Task<bool> DeletarArquivo(string filename)
     {

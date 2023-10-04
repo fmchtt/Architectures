@@ -1,0 +1,40 @@
+services:
+    balancer:
+        image: "nginx:latest"
+        volumes:
+            - "./architectures.conf:/etc/nginx/conf.d/default.conf"
+        ports:
+            - "80:80"
+            - "443:443"
+        depends_on:
+            - api
+        networks:
+            - "app-network"
+
+    api:
+        image: architectures/noclean
+        build:
+            dockerfile: "noarch.dockerfile"
+        expose:
+            - "80"
+        networks:
+            - "app-network"
+        depends_on:
+            - "database"
+        environment:
+            ConnectionString: "Server=database;Port=5432;Database=architectures;User Id=postgres;Password=docker1234@;"
+        deploy:
+            mode: replicated
+            replicas: 2
+
+    database:
+        image: "postgres:latest"
+        networks:
+            - "app-network"
+        environment:
+            POSTGRES_PASSWORD: docker1234@
+        expose:
+            - "5432"
+
+networks:
+    app-network: {}

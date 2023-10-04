@@ -33,7 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Architectures.CleanArch.App
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{B3B283BE-F511-40DF-BE4B-B1490B8C8477}"
 	ProjectSection(SolutionItems) = preProject
-		docker-compose.yaml = docker-compose.yaml
+		cleanarch-compose.yaml = cleanarch-compose.yaml
+		noarch-compose.yaml = noarch-compose.yaml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nginx", "nginx", "{E5CF4346-2075-4D8A-A408-D90636B2B97D}"
@@ -44,6 +45,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "application", "application", "{9E20424D-FEB4-43B2-A7A7-4EB16DDDF891}"
 	ProjectSection(SolutionItems) = preProject
 		cleanarch.dockerfile = cleanarch.dockerfile
+		noarch.dockerfile = noarch.dockerfile
 	EndProjectSection
 EndProject
 Global

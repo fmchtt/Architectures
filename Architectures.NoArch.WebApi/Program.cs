@@ -10,12 +10,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
 
 builder.Services.AddDbContext<EntityFrameworkContexto>(options =>
 {
-    options.UseNpgsql(builder.Configuration.GetConnectionString("EntityFrameworkContext"));
+    options.UseNpgsql(builder.Configuration.GetSection("ConnectionString").Value);
 });
+
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

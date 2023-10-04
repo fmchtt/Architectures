@@ -12,7 +12,7 @@ services:
             - "app-network"
 
     api:
-        image: architectures/clean
+        image: architectures/cleanarch
         build:
             dockerfile: "cleanarch.dockerfile"
         expose:

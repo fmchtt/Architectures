@@ -1,6 +1,16 @@
 ﻿# Implementação das arquiteturas para o TCC
 ## Título do TCC: Arquitetura de software: Desempenho x Manutenção
 
+### Para rodar o projeto utilize:
+
+Sem arquitetura
+
+docker-compose -f noarch-compose.yaml up -d
+
+Arquitetura limpa
+
+docker-compose -f cleanarch-compose.yaml up -d
+
 ### Serão implementadas as seguintes funcionalidades para cada arquitetura:
 1. Login ❌
 2. Registro ❌
