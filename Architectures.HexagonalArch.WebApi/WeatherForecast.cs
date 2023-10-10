@@ -1,4 +1,4 @@
-namespace Architectures.Onion.WebApi
+namespace Architectures.HexagonalArch.WebApi
 {
     public class WeatherForecast
     {

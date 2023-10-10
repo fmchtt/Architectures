@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Architectures.Onion.WebApi.Controllers
+namespace Architectures.HexagonalArch.WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
