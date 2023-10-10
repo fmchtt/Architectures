@@ -5,7 +5,7 @@ using Architectures.HexagonalArch.Domain.ValueObjects;
 
 namespace Architectures.HexagonalArch.Application.Servicos;
 
-public class ImportarProdutosService : ICasoDeUso<ImportarProdutosComando, ICollection<Produto>>
+public class ImportarProdutosService : IService<ImportarProdutosComando, ICollection<Produto>>
 {
     private readonly IArmazenagemArquivos _armazenagemArquivos;
     private readonly ILeitorTabela _leitorTabela;

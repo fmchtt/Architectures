@@ -1,6 +1,6 @@
-﻿using Architectures.CleanArch.Domain.Contratos;
-using Architectures.CleanArch.Domain.Entidades;
-using Architectures.CleanArch.Domain.ValueObjects;
+﻿using Architectures.HexagonalArch.Domain.Adaptadores;
+using Architectures.HexagonalArch.Domain.Entidades;
+using Architectures.HexagonalArch.Domain.ValueObjects;
 using Architectures.HexagonalArch.Infra.Configuracoes;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
-using Architectures.CleanArch.Domain.Contratos;
+using Architectures.HexagonalArch.Domain.Adaptadores;
 using Architectures.HexagonalArch.Infra.Ferramentas;
 using Architectures.HexagonalArch.Infra.Repositorios;
 using Architectures.HexagonalArch.Infra.ContextosBancoDeDados;
@@ -32,7 +32,7 @@ public static class InjecaoDependencias
         services.AddTransient<ILeitorTabela, LeitorTabela>();
 
         // Mediador #( Pattern Mediator )
-        services.AddMediatR(config => config.RegisterServicesFromAssembly(AppDomain.CurrentDomain.Load("Architectures.CleanArch.Application")));
+        services.AddMediatR(config => config.RegisterServicesFromAssembly(AppDomain.CurrentDomain.Load("Architectures.HexagonalArch.Application")));
 
         return services;
     }

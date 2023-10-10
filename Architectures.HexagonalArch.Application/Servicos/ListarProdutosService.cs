@@ -4,7 +4,7 @@ using Architectures.HexagonalArch.Domain.ValueObjects;
 
 namespace Architectures.HexagonalArch.Application.Servicos;
 
-public class ListarProdutosService : ICasoDeUso<ListarProdutosComando, ICollection<Produto>>
+public class ListarProdutosService : IService<ListarProdutosComando, ICollection<Produto>>
 {
     private readonly ILogger _logger;
     private readonly IRepositorioProduto _repositorioProduto;

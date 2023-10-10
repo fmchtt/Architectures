@@ -1,4 +1,4 @@
-﻿using Architectures.CleanArch.Domain.Contratos;
+﻿using Architectures.HexagonalArch.Domain.Adaptadores;
 using ExcelMapper;
 
 namespace Architectures.HexagonalArch.Infra.Ferramentas;

@@ -2,7 +2,7 @@
 
 namespace Architectures.HexagonalArch.Domain.Adaptadores;
 
-public interface ICasoDeUso<T, TResult> where T : Comando
+public interface IService<T, TResult> where T : Comando
 {
     public Task<TResult> Executar(T comando);
 }

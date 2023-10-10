@@ -1,5 +1,5 @@
-﻿using Architectures.CleanArch.Domain.Contratos;
-using Architectures.CleanArch.Domain.Excecoes;
+﻿using Architectures.HexagonalArch.Domain.Adaptadores;
+using Architectures.HexagonalArch.Domain.Excecoes;
 using Architectures.HexagonalArch.Infra.Configuracoes;
 using Microsoft.Extensions.Options;
 

@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Architectures.HexagonalArch.Domain\Architectures.HexagonalArch.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

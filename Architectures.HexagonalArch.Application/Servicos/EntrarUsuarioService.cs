@@ -4,7 +4,7 @@ using Architectures.HexagonalArch.Domain.ValueObjects;
 
 namespace Architectures.HexagonalArch.Application.Servicos;
 
-public class EntrarUsuarioService : ICasoDeUso<EntrarComando, TokenResultado>
+public class EntrarUsuarioService : IService<EntrarComando, TokenResultado>
 {
     private readonly IRepositorioUsuario _repositorioUsuario;
     private readonly IGeradorToken _geradorToken;

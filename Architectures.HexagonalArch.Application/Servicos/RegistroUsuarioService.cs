@@ -4,7 +4,7 @@ using Architectures.HexagonalArch.Domain.ValueObjects;
 
 namespace Architectures.HexagonalArch.Application.Servicos;
 
-public class RegistroUsuarioService : ICasoDeUso<RegistrarComando, TokenResultado>
+public class RegistroUsuarioService : IService<RegistrarComando, TokenResultado>
 {
     private readonly IRepositorioUsuario _repositorioUsuario;
     private readonly IGeradorToken _geradorToken;

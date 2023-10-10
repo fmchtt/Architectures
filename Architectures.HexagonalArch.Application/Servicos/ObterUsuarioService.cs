@@ -4,7 +4,7 @@ using Architectures.HexagonalArch.Domain.ValueObjects;
 
 namespace Architectures.HexagonalArch.Application.Servicos;
 
-public class ObterUsuarioService : ICasoDeUso<ObterUsuarioComando, UsuarioResultado>
+public class ObterUsuarioService : IService<ObterUsuarioComando, UsuarioResultado>
 {
     private readonly IRepositorioUsuario _repositorioUsuario;
     private readonly ILogger _logger;
