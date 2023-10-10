@@ -1,11 +1,11 @@
-﻿using Architectures.CleanArch.Domain.Contratos;
-using Architectures.CleanArch.Domain.Entidades;
-using Architectures.CleanArch.Domain.Excecoes;
+﻿using Architectures.HexagonalArch.Domain.Adaptadores;
+using Architectures.HexagonalArch.Domain.Entidades;
+using Architectures.HexagonalArch.Domain.Excecoes;
 using Architectures.HexagonalArch.Domain.ValueObjects;
 
 namespace Architectures.HexagonalArch.Application.Servicos;
 
-public class ImportarProdutosCasoDeUso : ICasoDeUso<ImportarProdutosComando, ICollection<Produto>>
+public class ImportarProdutosService : ICasoDeUso<ImportarProdutosComando, ICollection<Produto>>
 {
     private readonly IArmazenagemArquivos _armazenagemArquivos;
     private readonly ILeitorTabela _leitorTabela;
@@ -13,7 +13,7 @@ public class ImportarProdutosCasoDeUso : ICasoDeUso<ImportarProdutosComando, ICo
     private readonly IRepositorioProduto _repositorioProduto;
     private readonly IRepositorioArquivo _repositorioArquivo;
 
-    public ImportarProdutosCasoDeUso(IArmazenagemArquivos armazenagemArquivos, ILeitorTabela leitorTabela, ILogger logger, IRepositorioProduto repositorioProduto, IRepositorioArquivo repositorioArquivo)
+    public ImportarProdutosService(IArmazenagemArquivos armazenagemArquivos, ILeitorTabela leitorTabela, ILogger logger, IRepositorioProduto repositorioProduto, IRepositorioArquivo repositorioArquivo)
     {
         _armazenagemArquivos = armazenagemArquivos;
         _leitorTabela = leitorTabela;

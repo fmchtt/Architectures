@@ -1,15 +1,15 @@
-﻿using Architectures.CleanArch.Domain.Contratos;
-using Architectures.CleanArch.Domain.Entidades;
+﻿using Architectures.HexagonalArch.Domain.Adaptadores;
+using Architectures.HexagonalArch.Domain.Entidades;
 using Architectures.HexagonalArch.Domain.ValueObjects;
 
 namespace Architectures.HexagonalArch.Application.Servicos;
 
-public class ListarProdutosCasoDeUso : ICasoDeUso<ListarProdutosComando, ICollection<Produto>>
+public class ListarProdutosService : ICasoDeUso<ListarProdutosComando, ICollection<Produto>>
 {
     private readonly ILogger _logger;
     private readonly IRepositorioProduto _repositorioProduto;
 
-    public ListarProdutosCasoDeUso(ILogger logger, IRepositorioProduto repositorioProduto)
+    public ListarProdutosService(ILogger logger, IRepositorioProduto repositorioProduto)
     {
         _logger = logger;
         _repositorioProduto = repositorioProduto;

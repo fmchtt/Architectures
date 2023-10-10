@@ -1,16 +1,16 @@
-﻿using Architectures.CleanArch.Domain.Contratos;
-using Architectures.CleanArch.Domain.Entidades;
+﻿using Architectures.HexagonalArch.Domain.Adaptadores;
+using Architectures.HexagonalArch.Domain.Entidades;
 using Architectures.HexagonalArch.Domain.ValueObjects;
 
 namespace Architectures.HexagonalArch.Application.Servicos;
 
-public class RegistroUsuarioCasoDeUso : ICasoDeUso<RegistrarComando, TokenResultado>
+public class RegistroUsuarioService : ICasoDeUso<RegistrarComando, TokenResultado>
 {
     private readonly IRepositorioUsuario _repositorioUsuario;
     private readonly IGeradorToken _geradorToken;
     private readonly ILogger _logger;
 
-    public RegistroUsuarioCasoDeUso(IRepositorioUsuario repositorioUsuario, ILogger logger, IGeradorToken geradorToken)
+    public RegistroUsuarioService(IRepositorioUsuario repositorioUsuario, ILogger logger, IGeradorToken geradorToken)
     {
         _repositorioUsuario = repositorioUsuario;
         _geradorToken = geradorToken;

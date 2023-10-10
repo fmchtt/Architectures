@@ -1,16 +1,16 @@
-﻿using Architectures.CleanArch.Domain.Contratos;
-using Architectures.CleanArch.Domain.Excecoes;
+﻿using Architectures.HexagonalArch.Domain.Adaptadores;
+using Architectures.HexagonalArch.Domain.Excecoes;
 using Architectures.HexagonalArch.Domain.ValueObjects;
 
 namespace Architectures.HexagonalArch.Application.Servicos;
 
-public class EntrarUsuarioCasoDeUso : ICasoDeUso<EntrarComando, TokenResultado>
+public class EntrarUsuarioService : ICasoDeUso<EntrarComando, TokenResultado>
 {
     private readonly IRepositorioUsuario _repositorioUsuario;
     private readonly IGeradorToken _geradorToken;
     private readonly ILogger _logger;
 
-    public EntrarUsuarioCasoDeUso(IRepositorioUsuario repositorioUsuario, ILogger logger, IGeradorToken geradorToken)
+    public EntrarUsuarioService(IRepositorioUsuario repositorioUsuario, ILogger logger, IGeradorToken geradorToken)
     {
         _repositorioUsuario = repositorioUsuario;
         _logger = logger;

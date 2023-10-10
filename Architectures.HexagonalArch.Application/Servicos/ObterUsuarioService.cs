@@ -1,15 +1,15 @@
-﻿using Architectures.CleanArch.Domain.Contratos;
-using Architectures.CleanArch.Domain.Excecoes;
+﻿using Architectures.HexagonalArch.Domain.Adaptadores;
+using Architectures.HexagonalArch.Domain.Excecoes;
 using Architectures.HexagonalArch.Domain.ValueObjects;
 
 namespace Architectures.HexagonalArch.Application.Servicos;
 
-public class ObterUsuarioCasoDeUso : ICasoDeUso<ObterUsuarioComando, UsuarioResultado>
+public class ObterUsuarioService : ICasoDeUso<ObterUsuarioComando, UsuarioResultado>
 {
     private readonly IRepositorioUsuario _repositorioUsuario;
     private readonly ILogger _logger;
 
-    public ObterUsuarioCasoDeUso(IRepositorioUsuario repositorioUsuario, ILogger logger)
+    public ObterUsuarioService(IRepositorioUsuario repositorioUsuario, ILogger logger)
     {
         _repositorioUsuario = repositorioUsuario;
         _logger = logger;
