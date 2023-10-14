@@ -36,8 +36,8 @@
 
 #### Métricas de complexidade
 
-| Arquitetura | Complexidade |
-| --- | --- |
-| X | X | 
-| X | X | 
-| X | X | 
+| Arquitetura | Complexidade Ciclomatica | Complexidade Coginitiva |
+| --- | --- | --- |
+| CleanArch | 244 | 0 | 
+| NoArch | 139 | 24 |
+| HexagonalArch | X | X |

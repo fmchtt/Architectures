@@ -1,7 +1,5 @@
 ﻿using Architectures.NoArch.WebApi.Entidades;
-using Architectures.NoArch.WebApi.EntityFramework.Configuracoes;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 namespace Architectures.NoArch.WebApi.EntityFramework.ContextosBancoDeDados;
 
