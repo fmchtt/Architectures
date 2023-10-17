@@ -46,7 +46,7 @@ public class ControladorUsuario : BaseControlador
 
         //await _logger.Log($"Nova entrada do usuário {usuario.Nome}");
 
-        var geradorToken = new JwtGeradorToken("HAHAHAHAHAHAHA");
+        var geradorToken = new JwtGeradorToken("e0c37e0a-fa29-4181-b801-ce63a8b47b1b");
 
         return geradorToken.Gerar(usuario);
     }
@@ -60,7 +60,7 @@ public class ControladorUsuario : BaseControlador
 
         //await _logger.Log($"Novo registro do usuário {usuario.Nome}");
 
-        var geradorToken = new JwtGeradorToken("HAHAHAHAHAHAHA");
+        var geradorToken = new JwtGeradorToken("e0c37e0a-fa29-4181-b801-ce63a8b47b1b");
         return geradorToken.Gerar(usuario);
     }
 }

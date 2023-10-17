@@ -1,5 +1,8 @@
+using System.Text;
 using Architectures.NoArch.WebApi.EntityFramework.ContextosBancoDeDados;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +17,28 @@ builder.Services.AddDbContext<EntityFrameworkContexto>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetSection("ConnectionString").Value);
 });
+
+builder.Services.AddAuthentication(
+        options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        }
+    )
+    .AddJwtBearer(
+        options =>
+        {
+            options.RequireHttpsMetadata = false;
+            options.SaveToken = true;
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("e0c37e0a-fa29-4181-b801-ce63a8b47b1b")),
+                ValidateIssuer = false,
+                ValidateAudience = false,
+            };
+        }
+    );
 
 var app = builder.Build();
 

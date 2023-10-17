@@ -2,17 +2,17 @@
 
 public class EntrarComando : Comando
 {
-    public string Email { get; set; }
-    public string Password { get; set; }
+    public string Nome { get; set; }
+    public string Senha { get; set; }
 
     public EntrarComando()
     {
         
     }
 
-    public EntrarComando(string email, string password)
+    public EntrarComando(string nome, string senha)
     {
-        Email = email;
-        Password = password;
+        Nome = nome;
+        Senha = senha;
     }
 }

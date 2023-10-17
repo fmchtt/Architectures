@@ -21,13 +21,13 @@ public class EntrarUsuarioService : IRequestHandler<EntrarDTO, TokenResultado>
 
     public async Task<TokenResultado> Handle(EntrarDTO request, CancellationToken cancellationToken)
     {
-        var usuario = await _repositorioUsuario.ObterPorNome(request.Email);
+        var usuario = await _repositorioUsuario.ObterPorNome(request.Nome);
         if (usuario == null)
         {
             throw new ObjetoNaoEncontradoExcecao("Usuario não encontrado!");
         }
 
-        if (usuario.VerificarSenha(request.Password) == false)
+        if (usuario.VerificarSenha(request.Senha) == false)
         {
             throw new AutorizacaoExcecao("Senha inválida!");
         }

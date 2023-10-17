@@ -21,7 +21,7 @@ public class RegistroUsuarioService : IRequestHandler<RegistrarDTO, TokenResulta
 
     public async Task<TokenResultado> Handle(RegistrarDTO request, CancellationToken cancellationToken)
     {
-        var usuario = Usuario.Criar(request.Nome, request.Password);
+        var usuario = Usuario.Criar(request.Nome, request.Senha);
         usuario = await _repositorioUsuario.Salvar(usuario);
 
         await _logger.Log($"Novo registro do usuário {usuario.Nome}");
