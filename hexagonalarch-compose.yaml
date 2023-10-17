@@ -12,9 +12,9 @@ services:
             - "app-network"
 
     api:
-        image: architectures/cleanarch
+        image: architectures/hexagonalarch
         build:
-            dockerfile: "cleanarch.dockerfile"
+            dockerfile: "hexagonalarch.dockerfile"
         expose:
             - "80"
         networks:

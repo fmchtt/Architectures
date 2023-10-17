@@ -2,7 +2,7 @@ services:
     balancer:
         image: "nginx:latest"
         volumes:
-            - "./architectures.conf:/etc/nginx/conf.d/default.conf"
+            - "./architectures.conf:/etc/nginx/nginx.conf:ro"
         ports:
             - "80:80"
             - "443:443"
@@ -29,6 +29,7 @@ services:
 
     database:
         image: "postgres:latest"
+        command: postgres -c 'max_connections=450'
         networks:
             - "app-network"
         environment:
