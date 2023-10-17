@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using Architectures.CleanArch.WebApi.Filters;
+using Architectures.CleanArch.Infra.ContextosBancoDeDados;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -67,6 +70,8 @@ builder.Services.AddAuthentication(
     }
 );
 
+builder.Services.AddControllers(x => x.Filters.Add(new FiltroExcecao()));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -81,5 +86,11 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<EntityFrameworkContexto>();
+    db.Database.Migrate();
+}
 
 app.Run();

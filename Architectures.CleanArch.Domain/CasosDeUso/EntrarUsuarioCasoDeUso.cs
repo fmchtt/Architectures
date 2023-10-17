@@ -9,23 +9,25 @@ public class EntrarUsuarioCasoDeUso : ICasoDeUso<EntrarComando, TokenResultado>
     private readonly IRepositorioUsuario _repositorioUsuario;
     private readonly IGeradorToken _geradorToken;
     private readonly ILogger _logger;
+    private readonly ICriptografia _criptografia;
 
-    public EntrarUsuarioCasoDeUso(IRepositorioUsuario repositorioUsuario, ILogger logger, IGeradorToken geradorToken)
+    public EntrarUsuarioCasoDeUso(IRepositorioUsuario repositorioUsuario, ILogger logger, IGeradorToken geradorToken, ICriptografia criptografia)
     {
         _repositorioUsuario = repositorioUsuario;
         _logger = logger;
         _geradorToken = geradorToken;
+        _criptografia = criptografia;
     }
 
     public async Task<TokenResultado> Executar(EntrarComando comando)
     {
-        var usuario = await _repositorioUsuario.ObterPorNome(comando.Email);
+        var usuario = await _repositorioUsuario.ObterPorNome(comando.Nome);
         if (usuario == null)
         {
             throw new ObjetoNaoEncontradoExcecao("Usuario não encontrado!");
         }
 
-        if (usuario.VerificarSenha(comando.Password) == false)
+        if (!_criptografia.Verificar(usuario.Senha, comando.Senha))
         {
             throw new AutorizacaoExcecao("Senha inválida!");
         }

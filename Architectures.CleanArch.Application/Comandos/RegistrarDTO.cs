@@ -5,7 +5,7 @@ namespace Architectures.CleanArch.Application.Comandos;
 
 public class RegistrarDTO : RegistrarComando, IRequest<TokenResultado>
 {
-    public RegistrarDTO(string nome, string password) : base(nome, password)
+    public RegistrarDTO(string nome, string senha) : base(nome, senha)
     {
     }
 }

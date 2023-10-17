@@ -26,8 +26,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{B3B283BE-F511-40DF-BE4B-B1490B8C8477}"
 	ProjectSection(SolutionItems) = preProject
 		cleanarch-compose.yaml = cleanarch-compose.yaml
-		noarch-compose.yaml = noarch-compose.yaml
 		hexagonalarch-compose.yaml = hexagonalarch-compose.yaml
+		noarch-compose.yaml = noarch-compose.yaml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nginx", "nginx", "{E5CF4346-2075-4D8A-A408-D90636B2B97D}"
@@ -60,18 +60,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Architectures.HexagonalArch
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Architectures.HexagonalArch.Application", "Architectures.HexagonalArch.Application\Architectures.HexagonalArch.Application.csproj", "{85E82183-60D1-4E3A-9F85-BB47EF330DF5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Architectures.Tests", "Architectures.Tests", "{89CA7678-1DFC-4F97-9C5E-10F81627E8DC}"
-	ProjectSection(SolutionItems) = preProject
-		Architectures.Tests\api-editor-test.js = Architectures.Tests\api-editor-test.js
-		Architectures.Tests\product-faked.xlsx = Architectures.Tests\product-faked.xlsx
-		Architectures.Tests\test-k6-login-product.js = Architectures.Tests\test-k6-login-product.js
-		Architectures.Tests\test-k6-register.js = Architectures.Tests\test-k6-register.js
-		Architectures.Tests\user-faked-login.json = Architectures.Tests\user-faked-login.json
-		Architectures.Tests\user-faked.csv = Architectures.Tests\user-faked.csv
-		Architectures.Tests\user-faked.json = Architectures.Tests\user-faked.json
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{43BB067B-AC76-41D5-A85C-9C1C779F5999}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Architectures.Tests", "Architectures.Tests\Architectures.Tests.esproj", "{67AA7E78-A4D9-4377-9872-1ED9B47A7DD5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -115,6 +106,12 @@ Global
 		{85E82183-60D1-4E3A-9F85-BB47EF330DF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{85E82183-60D1-4E3A-9F85-BB47EF330DF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{85E82183-60D1-4E3A-9F85-BB47EF330DF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67AA7E78-A4D9-4377-9872-1ED9B47A7DD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67AA7E78-A4D9-4377-9872-1ED9B47A7DD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67AA7E78-A4D9-4377-9872-1ED9B47A7DD5}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{67AA7E78-A4D9-4377-9872-1ED9B47A7DD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67AA7E78-A4D9-4377-9872-1ED9B47A7DD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67AA7E78-A4D9-4377-9872-1ED9B47A7DD5}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -135,7 +132,7 @@ Global
 		{390F9CB5-6063-4E64-BD09-F5ADB084C7EE} = {4482FAA0-EB32-4C86-B3D3-6A94A9F540C7}
 		{59D4E5A0-AC44-4F62-A67F-2138D76B8202} = {390F9CB5-6063-4E64-BD09-F5ADB084C7EE}
 		{85E82183-60D1-4E3A-9F85-BB47EF330DF5} = {390F9CB5-6063-4E64-BD09-F5ADB084C7EE}
-		{89CA7678-1DFC-4F97-9C5E-10F81627E8DC} = {43BB067B-AC76-41D5-A85C-9C1C779F5999}
+		{67AA7E78-A4D9-4377-9872-1ED9B47A7DD5} = {43BB067B-AC76-41D5-A85C-9C1C779F5999}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6918EEFA-B936-4D4A-870A-FE553A87ABC1}

@@ -33,13 +33,13 @@ public class ControladorUsuario : BaseControlador
     [HttpPost("entrar")]
     public async Task<TokenResultado> Entrar(EntrarDTO data)
     {
-        var usuario = await _dbContext.Usuarios.FirstOrDefaultAsync(x => x.Nome == data.Email);
+        var usuario = await _dbContext.Usuarios.FirstOrDefaultAsync(x => x.Nome == data.Nome);
         if (usuario == null)
         {
             throw new Exception("Usuario não encontrado!");
         }
 
-        if (usuario.VerificarSenha(data.Password) == false)
+        if (usuario.VerificarSenha(data.Senha) == false)
         {
             throw new Exception("Senha inválida!");
         }
@@ -54,7 +54,7 @@ public class ControladorUsuario : BaseControlador
     [HttpPost("registrar")]
     public async Task<TokenResultado> Registrar(RegistrarDTO data)
     {
-        var usuario = Usuario.Criar(data.Nome, data.Password);
+        var usuario = Usuario.Criar(data.Nome, data.Senha);
         _dbContext.Add(usuario);
         await _dbContext.SaveChangesAsync();
 
