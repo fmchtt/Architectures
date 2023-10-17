@@ -1,11 +1,13 @@
-﻿using Architectures.HexagonalArch.Domain.Adaptadores;
+﻿using Architectures.HexagonalArch.Application.Comandos;
+using Architectures.HexagonalArch.Domain.Adaptadores;
 using Architectures.HexagonalArch.Domain.Entidades;
 using Architectures.HexagonalArch.Domain.Excecoes;
 using Architectures.HexagonalArch.Domain.ValueObjects;
+using MediatR;
 
 namespace Architectures.HexagonalArch.Application.Servicos;
 
-public class ImportarProdutosService : IService<ImportarProdutosComando, ICollection<Produto>>
+public class ImportarProdutosService : IRequestHandler<ImportarProdutosDTO, ICollection<Produto>>
 {
     private readonly IArmazenagemArquivos _armazenagemArquivos;
     private readonly ILeitorTabela _leitorTabela;
@@ -21,24 +23,23 @@ public class ImportarProdutosService : IService<ImportarProdutosComando, ICollec
         _repositorioProduto = repositorioProduto;
         _repositorioArquivo = repositorioArquivo;
     }
-
-    public async Task<ICollection<Produto>> Executar(ImportarProdutosComando comando)
+    public async Task<ICollection<Produto>> Handle(ImportarProdutosDTO request, CancellationToken cancellationToken)
     {
         await _repositorioProduto.Begin();
 
-        var filePath = await _armazenagemArquivos.SalvarArquivo(comando.Arquivo, comando.NomeArquivo);
-        var arquivo = Arquivo.Criar(filePath, comando.Usuario);
+        var filePath = await _armazenagemArquivos.SalvarArquivo(request.Arquivo, request.NomeArquivo);
+        var arquivo = Arquivo.Criar(filePath, request.Usuario);
         await _repositorioArquivo.Salvar(arquivo);
 
-        var produtosTabela = await _leitorTabela.LerTabela<ProdutoTabela>(comando.Arquivo);
+        var produtosTabela = await _leitorTabela.LerTabela<ProdutoTabela>(request.Arquivo);
         if (produtosTabela == null)
         {
             throw new ImprocessavelExcecao("Tabela não legível!");
         }
 
-        await _logger.Log($"Importando {produtosTabela.Count} produtos pelo usuario {comando.Usuario.Nome}");
+        await _logger.Log($"Importando {produtosTabela.Count} produtos pelo usuario {request.Usuario.Nome}");
 
-        var produtosBanco = await _repositorioProduto.ObterPorDono(comando.Usuario);
+        var produtosBanco = await _repositorioProduto.ObterPorDono(request.Usuario);
         if (produtosBanco != null)
         {
 
@@ -46,7 +47,7 @@ public class ImportarProdutosService : IService<ImportarProdutosComando, ICollec
             {
                 if (!produtosBanco.Any(x => x.Nome == produto.Nome))
                 {
-                    await _repositorioProduto.Salvar(produto.ParaEntidade(comando.Usuario));
+                    await _repositorioProduto.Salvar(produto.ParaEntidade(request.Usuario));
                 }
             }
 
@@ -61,6 +62,6 @@ public class ImportarProdutosService : IService<ImportarProdutosComando, ICollec
 
         await _repositorioProduto.Commit();
 
-        return await _repositorioProduto.ObterPorDono(comando.Usuario);
+        return await _repositorioProduto.ObterPorDono(request.Usuario);
     }
 }

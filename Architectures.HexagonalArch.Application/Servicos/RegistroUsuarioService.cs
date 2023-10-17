@@ -1,10 +1,12 @@
-﻿using Architectures.HexagonalArch.Domain.Adaptadores;
+﻿using Architectures.HexagonalArch.Application.Comandos;
+using Architectures.HexagonalArch.Domain.Adaptadores;
 using Architectures.HexagonalArch.Domain.Entidades;
 using Architectures.HexagonalArch.Domain.ValueObjects;
+using MediatR;
 
 namespace Architectures.HexagonalArch.Application.Servicos;
 
-public class RegistroUsuarioService : IService<RegistrarComando, TokenResultado>
+public class RegistroUsuarioService : IRequestHandler<RegistrarDTO, TokenResultado>
 {
     private readonly IRepositorioUsuario _repositorioUsuario;
     private readonly IGeradorToken _geradorToken;
@@ -17,9 +19,9 @@ public class RegistroUsuarioService : IService<RegistrarComando, TokenResultado>
         _logger = logger;
     }
 
-    public async Task<TokenResultado> Executar(RegistrarComando comando)
+    public async Task<TokenResultado> Handle(RegistrarDTO request, CancellationToken cancellationToken)
     {
-        var usuario = Usuario.Criar(comando.Nome, comando.Password);
+        var usuario = Usuario.Criar(request.Nome, request.Password);
         usuario = await _repositorioUsuario.Salvar(usuario);
 
         await _logger.Log($"Novo registro do usuário {usuario.Nome}");

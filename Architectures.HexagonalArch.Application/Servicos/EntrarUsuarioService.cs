@@ -1,10 +1,12 @@
-﻿using Architectures.HexagonalArch.Domain.Adaptadores;
+﻿using Architectures.HexagonalArch.Application.Comandos;
+using Architectures.HexagonalArch.Domain.Adaptadores;
 using Architectures.HexagonalArch.Domain.Excecoes;
 using Architectures.HexagonalArch.Domain.ValueObjects;
+using MediatR;
 
 namespace Architectures.HexagonalArch.Application.Servicos;
 
-public class EntrarUsuarioService : IService<EntrarComando, TokenResultado>
+public class EntrarUsuarioService : IRequestHandler<EntrarDTO, TokenResultado>
 {
     private readonly IRepositorioUsuario _repositorioUsuario;
     private readonly IGeradorToken _geradorToken;
@@ -17,15 +19,15 @@ public class EntrarUsuarioService : IService<EntrarComando, TokenResultado>
         _geradorToken = geradorToken;
     }
 
-    public async Task<TokenResultado> Executar(EntrarComando comando)
+    public async Task<TokenResultado> Handle(EntrarDTO request, CancellationToken cancellationToken)
     {
-        var usuario = await _repositorioUsuario.ObterPorNome(comando.Email);
+        var usuario = await _repositorioUsuario.ObterPorNome(request.Email);
         if (usuario == null)
         {
             throw new ObjetoNaoEncontradoExcecao("Usuario não encontrado!");
         }
 
-        if (usuario.VerificarSenha(comando.Password) == false)
+        if (usuario.VerificarSenha(request.Password) == false)
         {
             throw new AutorizacaoExcecao("Senha inválida!");
         }

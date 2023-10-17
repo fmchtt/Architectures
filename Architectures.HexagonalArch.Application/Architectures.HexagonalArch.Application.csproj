@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Architectures.HexagonalArch.Domain\Architectures.HexagonalArch.Domain.csproj" />
   </ItemGroup>
 
