@@ -39,8 +39,8 @@ export default function () {
 
   check(loginRes, {
     'user login successfull': (r) => r.status === 200,
-    'user token returned': (r) => r.json().token
-  }) || fail(`Erro ao efetuar login do usuario: ${user.nome} com a senha: ${user.senha}, resposta: ${r.body}`)
+    'user token returned': (r) => r.status === 200 && r.json().token
+  }) || fail(`Erro ao efetuar login do usuario: ${user.nome} com a senha: ${user.senha}, resposta: ${loginRes.body}`)
 
   const paramsUploadProduto = {
     headers: {

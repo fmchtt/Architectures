@@ -32,6 +32,6 @@ export default function () {
 
   check(registerRes, {
     'user register successfull': (r) => r.status === 200,
-    'user register returned token': (r) => r.json().token
-  }) || fail(`Erro ao efetuar registro do usuario: ${user.nome} com a senha: ${user.senha}, resposta: ${r.body}`);
+    'user register returned token': (r) => r.status === 200 && r.json().token
+  }) || fail(`Erro ao efetuar registro do usuario: ${user.nome} com a senha: ${user.senha}, resposta: ${registerRes.body}`);
 }
