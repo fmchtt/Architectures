@@ -27,7 +27,7 @@ export default function () {
   const user = data[scenario.iterationInTest];
 
   const fd = new FormData();
-  fd.append('data', http.file(xslx, 'product-faked.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'))
+  fd.append('arquivo', http.file(xslx, 'product-faked.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'))
 
   const paramsLogin = {
     headers: {
