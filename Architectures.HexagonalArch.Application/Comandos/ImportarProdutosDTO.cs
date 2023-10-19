@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Architectures.HexagonalArch.Application.Comandos;
 
-public class ImportarProdutosDTO : ImportarProdutosComando, IRequest<ICollection<Produto>>
+public class ImportarProdutosDTO : ImportarProdutosComando, IRequest<MensagemResultado>
 {
     public ImportarProdutosDTO(Stream arquivo, string nomeArquivo) : base(arquivo, nomeArquivo)
     {

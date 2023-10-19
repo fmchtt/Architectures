@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Architectures.HexagonalArch.Application.Servicos;
 
-public class ImportarProdutosService : IRequestHandler<ImportarProdutosDTO, ICollection<Produto>>
+public class ImportarProdutosService : IRequestHandler<ImportarProdutosDTO, MensagemResultado>
 {
     private readonly IArmazenagemArquivos _armazenagemArquivos;
     private readonly ILeitorTabela _leitorTabela;
@@ -23,7 +23,7 @@ public class ImportarProdutosService : IRequestHandler<ImportarProdutosDTO, ICol
         _repositorioProduto = repositorioProduto;
         _repositorioArquivo = repositorioArquivo;
     }
-    public async Task<ICollection<Produto>> Handle(ImportarProdutosDTO request, CancellationToken cancellationToken)
+    public async Task<MensagemResultado> Handle(ImportarProdutosDTO request, CancellationToken cancellationToken)
     {
         await _repositorioProduto.Begin();
 
@@ -62,6 +62,6 @@ public class ImportarProdutosService : IRequestHandler<ImportarProdutosDTO, ICol
 
         await _repositorioProduto.Commit();
 
-        return await _repositorioProduto.ObterPorDono(request.Usuario);
+        return new MensagemResultado("Importado com sucesso!");
     }
 }

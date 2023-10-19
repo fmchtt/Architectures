@@ -29,12 +29,12 @@ public class ControladorProduto : BaseControlador
     }
 
     [HttpPost, Authorize]
-    public async Task<ICollection<ProdutoResultado>> ImportarProdutos([FromForm] FileForm data)
+    public async Task<MensagemResultado> ImportarProdutos([FromForm] FileForm data)
     {
         var usuario = await ObterUsuario();
         System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
         var comando = new ImportarProdutosDTO(data.Arquivo.OpenReadStream(), data.Arquivo.Name, usuario);
-        var produtos = await _mediator.Send(comando);
-        return produtos.Select(produto => new ProdutoResultado(produto)).ToList();
+        var result = await _mediator.Send(comando);
+        return result;
     }
 }

@@ -37,7 +37,7 @@ public class ControladorProduto : BaseControlador
     }
 
     [HttpPost, Authorize]
-    public async Task<ICollection<ProdutoResultado>> ImportarProdutos([FromForm] IFormFile formFile)
+    public async Task<MensagemResultado> ImportarProdutos([FromForm] IFormFile formFile)
     {
         var usuario = await ObterUsuario();
         System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
@@ -85,6 +85,6 @@ public class ControladorProduto : BaseControlador
 
         var produtos = await _dbContext.Produtos.Where(x => x.DonoId == usuario.Id).ToListAsync();
 
-        return produtos.Select(produto => new ProdutoResultado(produto)).ToList();
+        return new MensagemResultado("Importado com sucesso!");
     }
 }

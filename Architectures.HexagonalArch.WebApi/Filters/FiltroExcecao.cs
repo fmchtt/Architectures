@@ -1,4 +1,5 @@
 ﻿using Architectures.HexagonalArch.Domain.Excecoes;
+using Architectures.HexagonalArch.Domain.ValueObjects;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -34,7 +35,7 @@ public class FiltroExcecao : ExceptionFilterAttribute
     {
         var exception = (ImprocessavelExcecao)context.Exception;
 
-        context.Result = new BadRequestObjectResult(exception.Message);
+        context.Result = new BadRequestObjectResult(new MensagemResultado(exception.Message));
         context.ExceptionHandled = true;
     }
 
@@ -42,7 +43,7 @@ public class FiltroExcecao : ExceptionFilterAttribute
     {
         var exception = (ObjetoNaoEncontradoExcecao)context.Exception;
 
-        context.Result = new NotFoundObjectResult(exception.Message);
+        context.Result = new NotFoundObjectResult(new MensagemResultado(exception.Message));
         context.ExceptionHandled = true;
     }
 
@@ -50,7 +51,7 @@ public class FiltroExcecao : ExceptionFilterAttribute
     {
         var exception = (AutorizacaoExcecao)context.Exception;
 
-        context.Result = new UnauthorizedObjectResult(exception.Message);
+        context.Result = new UnauthorizedObjectResult(new MensagemResultado(exception.Message));
         context.ExceptionHandled = true;
     }
 }
