@@ -4,7 +4,7 @@ import { SharedArray } from 'k6/data';
 import { scenario } from 'k6/execution';
 
 const data = new SharedArray('users', () => {
-  return JSON.parse(open('./user-faked.json'));
+  return JSON.parse(open('./data/user-faked.json'));
 })
 
 export const options = {

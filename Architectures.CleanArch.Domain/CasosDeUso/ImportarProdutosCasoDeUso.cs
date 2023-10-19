@@ -5,7 +5,7 @@ using Architectures.CleanArch.Domain.ValueObjects;
 
 namespace Architectures.CleanArch.Domain.CasosDeUso;
 
-public class ImportarProdutosCasoDeUso : ICasoDeUso<ImportarProdutosComando, ICollection<Produto>>
+public class ImportarProdutosCasoDeUso : ICasoDeUso<ImportarProdutosComando, MensagemResultado>
 {
     private readonly IArmazenagemArquivos _armazenagemArquivos;
     private readonly ILeitorTabela _leitorTabela;
@@ -22,7 +22,7 @@ public class ImportarProdutosCasoDeUso : ICasoDeUso<ImportarProdutosComando, ICo
         _repositorioArquivo = repositorioArquivo;
     }
 
-    public async Task<ICollection<Produto>> Executar(ImportarProdutosComando comando)
+    public async Task<MensagemResultado> Executar(ImportarProdutosComando comando)
     {
         await _repositorioProduto.Begin();
 
@@ -61,6 +61,6 @@ public class ImportarProdutosCasoDeUso : ICasoDeUso<ImportarProdutosComando, ICo
 
         await _repositorioProduto.Commit();
 
-        return await _repositorioProduto.ObterPorDono(comando.Usuario);
+        return new MensagemResultado("Importado com sucesso!");
     }
 }

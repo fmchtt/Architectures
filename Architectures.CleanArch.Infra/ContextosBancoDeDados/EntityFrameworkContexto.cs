@@ -25,7 +25,9 @@ public class EntityFrameworkContexto : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Usuario>().HasIndex(u => u.Nome).IsUnique();
+
         modelBuilder.Entity<Produto>().HasOne(p => p.Dono).WithMany().HasForeignKey(p => p.DonoId);
+
         modelBuilder.Entity<Arquivo>().HasOne(a => a.Dono).WithMany().HasForeignKey(a => a.DonoId);
     }
 }

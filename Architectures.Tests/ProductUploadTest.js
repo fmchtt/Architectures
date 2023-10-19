@@ -5,10 +5,10 @@ import { scenario } from 'k6/execution';
 import { FormData } from 'https://jslib.k6.io/formdata/0.0.2/index.js'
 
 const data = new SharedArray('users', () => {
-  return JSON.parse(open('./user-faked.json'));
+  return JSON.parse(open('./data/user-faked.json'));
 })
 
-const xslx = open('./product-faked.xlsx', 'b');
+const xslx = open('./data/product-faked.xlsx', 'b');
 
 export const options = {
   scenarios: {

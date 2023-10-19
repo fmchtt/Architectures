@@ -361,5 +361,13 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/Architectures.CleanArch.WebApi/appsettings.Development.json
 /.sonarqube/conf
+
+
+/Architectures.NoArch.WebApi/appsettings.Development.json
+/Architectures.CleanArch.WebApi/appsettings.Development.json
+/Architectures.HexagonalArch.WebApi/appsettings.Development.json
+
+/Architectures.NoArch.WebApi/wwroot/
+/Architectures.CleanArch.WebApi/wwroot/
+/Architectures.HexagonalArch.WebApi/wwroot/
