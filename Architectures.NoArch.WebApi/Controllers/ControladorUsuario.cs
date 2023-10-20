@@ -25,6 +25,10 @@ public class ControladorUsuario : BaseControlador
     public async Task<UsuarioResultado> ObterUsuarioAtual()
     {
         var usuario = await ObterUsuario();
+        
+        Console.WriteLine("================== LOG ==================");
+        Console.WriteLine($"Nova verificação do usuário {usuario.Nome}");
+        Console.WriteLine("================== LOG ==================");
 
         var usuarioResultado = new UsuarioResultado(usuario);
         return usuarioResultado;
@@ -43,8 +47,10 @@ public class ControladorUsuario : BaseControlador
         {
             throw new Exception("Senha inválida!");
         }
-
-        //await _logger.Log($"Nova entrada do usuário {usuario.Nome}");
+        
+        Console.WriteLine("================== LOG ==================");
+        Console.WriteLine($"Nova entrada do usuário {usuario.Nome}");
+        Console.WriteLine("================== LOG ==================");
 
         var geradorToken = new JwtGeradorToken("e0c37e0a-fa29-4181-b801-ce63a8b47b1b");
 
@@ -58,7 +64,9 @@ public class ControladorUsuario : BaseControlador
         _dbContext.Add(usuario);
         await _dbContext.SaveChangesAsync();
 
-        //await _logger.Log($"Novo registro do usuário {usuario.Nome}");
+        Console.WriteLine("================== LOG ==================");
+        Console.WriteLine($"Novo registro do usuário {usuario.Nome}");
+        Console.WriteLine("================== LOG ==================");
 
         var geradorToken = new JwtGeradorToken("e0c37e0a-fa29-4181-b801-ce63a8b47b1b");
         return geradorToken.Gerar(usuario);

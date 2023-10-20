@@ -30,6 +30,7 @@ public static class InjecaoDependencias
         services.AddTransient<IArmazenagemArquivos, LocalArmazenagemArquivos>();
         services.AddTransient<IGeradorToken, JwtGeradorToken>();
         services.AddTransient<ILeitorTabela, LeitorTabela>();
+        services.AddTransient<ICriptografia, Base64Criptografia>();
 
         // Mediador #( Pattern Mediator )
         services.AddMediatR(config => config.RegisterServicesFromAssembly(AppDomain.CurrentDomain.Load("Architectures.HexagonalArch.Application")));

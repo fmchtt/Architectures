@@ -11,12 +11,15 @@ public class EntrarUsuarioService : IRequestHandler<EntrarDTO, TokenResultado>
     private readonly IRepositorioUsuario _repositorioUsuario;
     private readonly IGeradorToken _geradorToken;
     private readonly ILogger _logger;
+    private readonly ICriptografia _criptografia;
 
-    public EntrarUsuarioService(IRepositorioUsuario repositorioUsuario, ILogger logger, IGeradorToken geradorToken)
+    public EntrarUsuarioService(IRepositorioUsuario repositorioUsuario, ILogger logger, IGeradorToken geradorToken,
+        ICriptografia criptografia)
     {
         _repositorioUsuario = repositorioUsuario;
         _logger = logger;
         _geradorToken = geradorToken;
+        _criptografia = criptografia;
     }
 
     public async Task<TokenResultado> Handle(EntrarDTO request, CancellationToken cancellationToken)
@@ -27,7 +30,7 @@ public class EntrarUsuarioService : IRequestHandler<EntrarDTO, TokenResultado>
             throw new ObjetoNaoEncontradoExcecao("Usuario não encontrado!");
         }
 
-        if (usuario.VerificarSenha(request.Senha) == false)
+        if (!_criptografia.Verificar(usuario.Senha, request.Senha))
         {
             throw new AutorizacaoExcecao("Senha inválida!");
         }

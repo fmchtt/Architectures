@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace Architectures.HexagonalArch.Domain.Entidades;
+﻿namespace Architectures.HexagonalArch.Domain.Entidades;
 
 public class Usuario : Entidade
 {
@@ -15,29 +13,14 @@ public class Usuario : Entidade
         Senha = string.Empty;
     }
 
-    public Usuario(string nome)
+    public Usuario(string nome, string senha)
     {
         Nome = nome;
-        Senha = string.Empty;
+        Senha = senha;
     }
 
     public static Usuario Criar(string nome, string senha)
     {
-        var usuario = new Usuario(nome);
-        usuario.AtribuirSenha(senha);
-        return usuario;
-    }
-
-    public void AtribuirSenha(string senha)
-    {
-        var senhaBytes = Encoding.UTF8.GetBytes(senha);
-        Senha = Convert.ToBase64String(senhaBytes);
-    }
-
-    public bool VerificarSenha(string senha)
-    {
-        var senhaBytes = Encoding.UTF8.GetBytes(senha);
-        var senhaCriptograda = Convert.ToBase64String(senhaBytes);
-        return Senha.Equals(senhaCriptograda);
+        return new Usuario(nome, senha);
     }
 }

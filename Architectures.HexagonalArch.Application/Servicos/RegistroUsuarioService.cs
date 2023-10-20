@@ -11,17 +11,21 @@ public class RegistroUsuarioService : IRequestHandler<RegistrarDTO, TokenResulta
     private readonly IRepositorioUsuario _repositorioUsuario;
     private readonly IGeradorToken _geradorToken;
     private readonly ILogger _logger;
+    private readonly ICriptografia _criptografia;
 
-    public RegistroUsuarioService(IRepositorioUsuario repositorioUsuario, ILogger logger, IGeradorToken geradorToken)
+    public RegistroUsuarioService(IRepositorioUsuario repositorioUsuario, ILogger logger, IGeradorToken geradorToken,
+        ICriptografia criptografia)
     {
         _repositorioUsuario = repositorioUsuario;
         _geradorToken = geradorToken;
         _logger = logger;
+        _criptografia = criptografia;
     }
 
     public async Task<TokenResultado> Handle(RegistrarDTO request, CancellationToken cancellationToken)
     {
-        var usuario = Usuario.Criar(request.Nome, request.Senha);
+        var senha = _criptografia.Criptografar(request.Senha);
+        var usuario = Usuario.Criar(request.Nome, senha);
         usuario = await _repositorioUsuario.Salvar(usuario);
 
         await _logger.Log($"Novo registro do usuário {usuario.Nome}");

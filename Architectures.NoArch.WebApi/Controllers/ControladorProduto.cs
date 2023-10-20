@@ -26,7 +26,9 @@ public class ControladorProduto : BaseControlador
     {
         var usuario = await ObterUsuario();
 
-        //await _logger.Log($"Listagem de produtos requisitada pelo usuario: {comando.Usuario.Nome}");
+        Console.WriteLine("================== LOG ==================");
+        Console.WriteLine($"Listagem de produtos requisitada pelo usuario: {usuario.Nome}");
+        Console.WriteLine("================== LOG ==================");
 
         var produtos = await _dbContext.Produtos.Where(x => x.DonoId == usuario.Id).ToListAsync();
 
@@ -57,7 +59,9 @@ public class ControladorProduto : BaseControlador
             throw new Exception("Tabela não legível!");
         }
 
-        //await _logger.Log($"Importando {produtosTabela.Count} produtos pelo usuario {comando.Usuario.Nome}");
+        Console.WriteLine("================== LOG ==================");
+        Console.WriteLine($"Importando {produtosTabela.Count} produtos pelo usuario {usuario.Nome}");
+        Console.WriteLine("================== LOG ==================");
 
         var produtosBanco = await _dbContext.Produtos.Where(x => x.DonoId == usuario.Id).ToListAsync();
 
@@ -83,7 +87,7 @@ public class ControladorProduto : BaseControlador
             }
         }
 
-        var produtos = await _dbContext.Produtos.Where(x => x.DonoId == usuario.Id).ToListAsync();
+        await _dbContext.Produtos.Where(x => x.DonoId == usuario.Id).ToListAsync();
 
         return new MensagemResultado("Importado com sucesso!");
     }
