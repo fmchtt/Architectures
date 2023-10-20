@@ -39,21 +39,21 @@ public class ControladorProduto : BaseControlador
     }
 
     [HttpPost, Authorize]
-    public async Task<MensagemResultado> ImportarProdutos([FromForm] IFormFile formFile)
+    public async Task<MensagemResultado> ImportarProdutos([FromForm] ImportarProdutosDTO form)
     {
         var usuario = await ObterUsuario();
         System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 
         var armazenagemArquivos = new LocalArmazenagemArquivos("uploads");
 
-        var filePath = await armazenagemArquivos.SalvarArquivo(formFile.OpenReadStream(), formFile.Name);
+        var filePath = await armazenagemArquivos.SalvarArquivo(form.Arquivo.OpenReadStream(), form.Arquivo.Name);
         var arquivo = Arquivo.Criar(filePath, usuario);
 
         _dbContext.Arquivos.Add(arquivo);
         await _dbContext.SaveChangesAsync();
 
         var leitorTabela = new LeitorTabela();
-        var produtosTabela = await leitorTabela.LerTabela(formFile.OpenReadStream());
+        var produtosTabela = await leitorTabela.LerTabela(form.Arquivo.OpenReadStream());
         if (produtosTabela == null)
         {
             throw new Exception("Tabela não legível!");
