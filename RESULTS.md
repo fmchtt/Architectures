@@ -35,7 +35,7 @@
 | Hexagonal Arch | Registro | 5000 | 83.48ms | 71.31ms | 574.79ms | 3.99ms | 42.3ms | 1169.08/s |
 | Hexagonal Arch | Login | 5000 | 50.81ms | 40.5ms | 271.75ms | 2.64ms | 24.25ms | 2031.99/s |
 | Hexagonal Arch | Importação | 5000 | 2.52s | 2.26s | 3.93s | 1.99ms | 754.81ms | 31.07/s |
-| Hexagonal Arch | Retorno Lista | 5000 | 586.44ms | 485.77ms | 3.27ms | 1.99ms | 188.45ms | 238.97/s |
+| Hexagonal Arch | Retorno Lista | 5000 | 586.44ms | 485.77ms | 1.31s | 1.99ms | 227.19ms | 108.51/s |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | No Arch | Registro | 5000 | 79.52ms | 63ms | 739.41ms | 3.99ms | 41.11ms | 1205.45/s |
 | No Arch | Login | 5000 | 40ms | 35ms | 109.43ms | 2ms | 21.04ms | 2331.94/s |
