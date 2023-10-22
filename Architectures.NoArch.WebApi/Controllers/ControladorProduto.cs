@@ -13,16 +13,14 @@ namespace Architectures.NoArch.WebApi.Controllers;
 [ApiController, Route("produtos")]
 public class ControladorProduto : BaseControlador
 {
-
     private readonly EntityFrameworkContexto _dbContext;
-    private IDbContextTransaction? Transaction { get; set; }
 
     public ControladorProduto(EntityFrameworkContexto dbContext)
         : base(dbContext)
     {
         _dbContext = dbContext;
     }
-    
+
     [HttpGet, Authorize]
     public async Task<ICollection<ProdutoResultado>> ListarProdutos([FromQuery] string? nome)
     {
@@ -32,12 +30,12 @@ public class ControladorProduto : BaseControlador
         Console.WriteLine($"Listagem de produtos requisitada pelo usuario: {usuario.Nome}");
         Console.WriteLine("================== LOG ==================");
 
-        var produtos = await _dbContext.Produtos.Where(x => x.DonoId == usuario.Id).ToListAsync();
+        var query = _dbContext.Produtos.Where(x => x.DonoId == usuario.Id);
 
         if (nome != null)
-            produtos = produtos.Where(x => x.Nome.Contains(nome)).ToList();
+            query = query.Where(x => x.Nome.Contains(nome));
 
-        return produtos.Select(produto => new ProdutoResultado(produto)).ToList();
+        return await query.Select(produto => new ProdutoResultado(produto)).ToListAsync();
     }
 
     [HttpPost, Authorize]
@@ -66,43 +64,18 @@ public class ControladorProduto : BaseControlador
         Console.WriteLine("================== LOG ==================");
 
         var produtosBanco = await _dbContext.Produtos.Where(x => x.DonoId == usuario.Id).ToListAsync();
+        var transaction = await _dbContext.Database.BeginTransactionAsync();
 
-        Transaction = await _dbContext.Database.BeginTransactionAsync();
-
-        if (produtosBanco != null)
+        if (produtosBanco.Any())
         {
-
-            foreach (var produto in produtosTabela)
-            {
-                if (!produtosBanco.Any(x => x.Nome == produto.Nome))
-                {
-                    _dbContext.Produtos.Add(produto.ParaEntidade(usuario));
-                    if (Transaction == null)
-                    {
-                        await _dbContext.SaveChangesAsync();
-                    }
-                }
-            }
-
-            foreach (var produto in produtosBanco)
-            {
-                if (!produtosTabela.Any(x => x.Nome == produto.Nome))
-                {
-                    _dbContext.Produtos.Remove(produto);
-                    if (Transaction == null)
-                    {
-                        await _dbContext.SaveChangesAsync();
-                    }
-                }
-            }
+            var nomesTabela = produtosTabela.Select(p => p.Nome);
+            await _dbContext.Produtos.Where(p => !nomesTabela.Contains(p.Nome)).ExecuteDeleteAsync();
         }
 
-        if (Transaction != null)
-        {
-            await _dbContext.SaveChangesAsync();
-            await Transaction.CommitAsync();
-            Transaction = null;
-        }
+        await _dbContext.Produtos.AddRangeAsync(produtosTabela.Select(p => p.ParaEntidade(usuario)));
+
+        await _dbContext.SaveChangesAsync();
+        await transaction.CommitAsync();
 
         return new MensagemResultado("Importado com sucesso!");
     }

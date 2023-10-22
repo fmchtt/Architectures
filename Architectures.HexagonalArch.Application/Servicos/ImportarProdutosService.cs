@@ -40,25 +40,13 @@ public class ImportarProdutosService : IRequestHandler<ImportarProdutosDTO, Mens
         await _logger.Log($"Importando {produtosTabela.Count} produtos pelo usuario {request.Usuario.Nome}");
 
         var produtosBanco = await _repositorioProduto.ObterPorDono(request.Usuario);
-        if (produtosBanco != null)
+
+        if (produtosBanco.Any())
         {
-
-            foreach (var produto in produtosTabela)
-            {
-                if (!produtosBanco.Any(x => x.Nome == produto.Nome))
-                {
-                    await _repositorioProduto.Salvar(produto.ParaEntidade(request.Usuario));
-                }
-            }
-
-            foreach (var produto in produtosBanco)
-            {
-                if (!produtosTabela.Any(x => x.Nome == produto.Nome))
-                {
-                    await _repositorioProduto.Deletar(produto);
-                }
-            }
+            await _repositorioProduto.RemoverExcedentesPorNomes(produtosTabela.Select(p => p.Nome));
         }
+
+        await _repositorioProduto.SalvarVarios(produtosTabela.Select(p => p.ParaEntidade(request.Usuario)));
 
         await _repositorioProduto.Commit();
 

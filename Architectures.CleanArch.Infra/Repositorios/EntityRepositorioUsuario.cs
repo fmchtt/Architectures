@@ -59,6 +59,15 @@ public class EntityRepositorioUsuario : IRepositorioUsuario
         return usuario.Entity;
     }
 
+    public async Task SalvarVarios(Usuario entidades)
+    {
+        await _dbContext.Usuarios.AddRangeAsync(entidades);
+        if (Transaction == null)
+        {
+            await _dbContext.SaveChangesAsync();
+        }
+    }
+
     public async Task<Usuario> Atualizar(Usuario entidade)
     {
         var usuario = _dbContext.Usuarios.Update(entidade);

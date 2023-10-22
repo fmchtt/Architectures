@@ -10,6 +10,11 @@ services:
             - api
         networks:
             - "app-network"
+        deploy:
+            resources:
+                limits:
+                    cpus: "2"
+                    memory: "2GB"
 
     api:
         image: architectures/noclean
@@ -30,6 +35,10 @@ services:
                 condition: on-failure
                 delay: 5s
                 max_attempts: 2
+            resources:
+                limits:
+                    cpus: "2"
+                    memory: "1.5GB"
 
     database:
         image: "postgres:latest"
@@ -40,6 +49,11 @@ services:
             POSTGRES_PASSWORD: docker1234@
         expose:
             - "5432"
+        deploy:
+            resources:
+                limits:
+                    cpus: "4"
+                    memory: "3GB"
 
 networks:
     app-network: {}

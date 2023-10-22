@@ -45,10 +45,25 @@ public class EntityRepositorioProduto : IRepositorioProduto
         return await _dbContext.Produtos.Where(x => x.DonoId == dono.Id).ToListAsync();
     }
 
+    public async Task RemoverExcedentesPorNome(IEnumerable<string> nomes)
+    {
+        await _dbContext.Produtos.Where(p => !nomes.Contains(p.Nome)).ExecuteDeleteAsync();
+    }
+
     public async Task<Produto?> ObterPorId(int id)
     {
         return await _dbContext.Produtos.FirstOrDefaultAsync(x => x.Id == id);
     }
+
+    public async Task SalvarVarios(Produto entidades)
+    {
+        await _dbContext.Produtos.AddRangeAsync(entidades);
+        if (Transaction == null)
+        {
+            await _dbContext.SaveChangesAsync();
+        }
+    }
+
     public async Task<Produto> Atualizar(Produto entidade)
     {
         var produto = _dbContext.Produtos.Update(entidade);
@@ -61,7 +76,7 @@ public class EntityRepositorioProduto : IRepositorioProduto
 
     public async Task<Produto> Salvar(Produto entidade)
     {
-        var produto = _dbContext.Produtos.Add(entidade);
+        var produto = await _dbContext.Produtos.AddAsync(entidade);
         if (Transaction == null)
         {
             await _dbContext.SaveChangesAsync();

@@ -9,6 +9,7 @@ public interface IRepositorio<T> where T : Entidade
     public Task Rollback();
     public Task<T?> ObterPorId(int id);
     public Task<T> Salvar(T entidade);
+    public Task SalvarVarios(IEnumerable<T> entidades);
     public Task<T> Atualizar(T entidade);
     public Task Deletar(T entidade);
 }

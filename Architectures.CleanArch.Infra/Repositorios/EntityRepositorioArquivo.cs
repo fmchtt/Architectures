@@ -46,12 +46,21 @@ public class EntityRepositorioArquivo : IRepositorioArquivo
 
     public async Task<Arquivo> Salvar(Arquivo entidade)
     {
-        var arquivo = _dbContext.Add(entidade);
+        var arquivo = await _dbContext.AddAsync(entidade);
         if (Transaction == null)
         {
             await _dbContext.SaveChangesAsync();
         }
         return arquivo.Entity;
+    }
+
+    public async Task SalvarVarios(Arquivo entidades)
+    {
+        await _dbContext.AddRangeAsync(entidades);
+        if (Transaction == null)
+        {
+            await _dbContext.SaveChangesAsync();
+        }
     }
 
     public async Task<Arquivo> Atualizar(Arquivo entidade)
