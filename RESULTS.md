@@ -6,7 +6,7 @@
 
 | Arquitetura | Regra | CPU 
 | --- | --- | --- |
-| Clean Arch | Registro | 0.05% |
+| Clean Arch | Registro | 59.78% |
 | Clean Arch | Login | 21.31% |
 | Clean Arch | Importação | 86.46% |
 | Clean Arch | Retorno Lista | 90.00% |
@@ -16,10 +16,10 @@
 | Hexagonal Arch | Importação | ~25.53% |
 | Hexagonal Arch | Retorno Lista | 68,53% |
 | --- | --- | --- | --- |
-| No Arch | Registro | X |
-| No Arch | Login | X |
-| No Arch | Importação | X |
-| No Arch | Retorno Lista | X |
+| No Arch | Registro | 61.80% |
+| No Arch | Login | 30.03% |
+| No Arch | Importação | ~41.55% |
+| No Arch | Retorno Lista | 70.77% |
 
 ## Testes de desempenho
 
@@ -34,13 +34,13 @@
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Hexagonal Arch | Registro | 5000 | 71ms | 57.32ms | 665.02ms | 5.98ms | 38.34ms | 1292.75/s |
 | Hexagonal Arch | Login | 5000 | 50.33ms | 39.99ms | 277.36ms | 2.99ms | 23.91ms | 1976.99/s |
-| Hexagonal Arch | Importação | 3354 | 17.91s | 13.23s | 48.89s | 7.91ms | 4.46s | 5.4/s |
+| Hexagonal Arch | Importação | 3354 (67%) | 17.91s | 13.23s | 48.89s | 7.91ms | 4.46s | 5.4/s |
 | Hexagonal Arch | Retorno Lista | 3354 | 305.88ms | 245.25ms | 1.99ms | 775.4ms | 91.01ms | 238.97/s |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| No Arch | Registro | 5000 | X | X | X | X | X | X |
-| No Arch | Login | 5000 | X | X | X | X | X | X |
-| No Arch | Importação | 5000 | X | X | X | X | X | X |
-| No Arch | Retorno Lista | 5000 | X | X | X | X | X | X |
+| No Arch | Registro | 5000 | 79.52ms | 63ms | 739.41ms | 3.99ms | 41.11ms | 1205.45/s |
+| No Arch | Login | 5000 | 45ms | 34ms | 239.67ms | 2.99ms | 21.19ms | 2322.82/s |
+| No Arch | Importação | 3621 (72%) | 11.52s | 9.43s | 20.94s | 5.78ms | 4.09s | 5.96/s |
+| No Arch | Retorno Lista | 3621 | 184.76ms | 156.96ms | 437.32ms | 1.99ms | 67.84ms | 292.19/s |
 
 ## Manutenção
 

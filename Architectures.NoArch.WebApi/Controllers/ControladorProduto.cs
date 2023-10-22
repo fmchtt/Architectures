@@ -6,6 +6,7 @@ using Architectures.NoArch.WebApi.ValueObjects;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Architectures.NoArch.WebApi.Controllers;
 
@@ -14,6 +15,7 @@ public class ControladorProduto : BaseControlador
 {
 
     private readonly EntityFrameworkContexto _dbContext;
+    private IDbContextTransaction? Transaction { get; set; }
 
     public ControladorProduto(EntityFrameworkContexto dbContext)
         : base(dbContext)
@@ -65,6 +67,8 @@ public class ControladorProduto : BaseControlador
 
         var produtosBanco = await _dbContext.Produtos.Where(x => x.DonoId == usuario.Id).ToListAsync();
 
+        Transaction = await _dbContext.Database.BeginTransactionAsync();
+
         if (produtosBanco != null)
         {
 
@@ -73,7 +77,10 @@ public class ControladorProduto : BaseControlador
                 if (!produtosBanco.Any(x => x.Nome == produto.Nome))
                 {
                     _dbContext.Produtos.Add(produto.ParaEntidade(usuario));
-                    await _dbContext.SaveChangesAsync();
+                    if (Transaction == null)
+                    {
+                        await _dbContext.SaveChangesAsync();
+                    }
                 }
             }
 
@@ -82,12 +89,20 @@ public class ControladorProduto : BaseControlador
                 if (!produtosTabela.Any(x => x.Nome == produto.Nome))
                 {
                     _dbContext.Produtos.Remove(produto);
-                    await _dbContext.SaveChangesAsync();
+                    if (Transaction == null)
+                    {
+                        await _dbContext.SaveChangesAsync();
+                    }
                 }
             }
         }
 
-        await _dbContext.Produtos.Where(x => x.DonoId == usuario.Id).ToListAsync();
+        if (Transaction != null)
+        {
+            await _dbContext.SaveChangesAsync();
+            await Transaction.CommitAsync();
+            Transaction = null;
+        }
 
         return new MensagemResultado("Importado com sucesso!");
     }
